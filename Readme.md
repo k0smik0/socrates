@@ -4,7 +4,7 @@ Did you search for a component which is responsible for query Google Places
 and retrieves result and, finally, maps into java class? 
 There is Socrates.
 
-Why *Socrates*? Because, as homonim philopher said:
+Why *Socrates*? Because, as homonim philosopher said:
 *"sage goes to the market to see, not to buy".*
 
 And so Socrates component just search (google) places within bound (as parameter).
