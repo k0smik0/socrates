@@ -19,12 +19,21 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.exceptions;
 
-
+/** 
+ * Map "REQUEST_DENIED" from GooglePlacesAPI request
+ * 
+ * @author "Massimiliano Leone - massimiliano.leone@iubris.net"
+ * 
+ * @see https://developers.google.com/maps/documentation/places/index#PlaceSearchStatusCodes
+ */
 public class PlacesRequestDeniedException extends PlacesStatusException {
 
 	public PlacesRequestDeniedException(String reason) {
 		super(reason);
-	}	
+	}
+	public PlacesRequestDeniedException(Throwable cause) {
+		super(cause);
+	}
 	private static final long serialVersionUID = -2394114252710231525L;
 
 }

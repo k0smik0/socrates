@@ -26,6 +26,9 @@ public class PlaceDetailsRetrieverException extends PlacesException {
 	public PlaceDetailsRetrieverException(String exception) {
 		super(exception);
 	}
+	public PlaceDetailsRetrieverException(Throwable cause) {
+		super(cause);
+	}
 	
 	private static final long serialVersionUID = 2284346095645962921L;
 

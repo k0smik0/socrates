@@ -26,6 +26,9 @@ public class PlacesSearcherException extends PlacesException {
 	public PlacesSearcherException(String reason) {
 		super(reason);
 	}
+	public PlacesSearcherException(Throwable cause) {
+		super(cause);
+	}	
 	
 	private static final long serialVersionUID = 2184329588892946196L;
 

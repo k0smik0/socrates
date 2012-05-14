@@ -19,11 +19,20 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.exceptions;
 
-
+/** 
+ * Map "INVALID_REQUEST" from GooglePlacesAPI request
+ * 
+ * @author "Massimiliano Leone - massimiliano.leone@iubris.net"
+ * 
+ * @see https://developers.google.com/maps/documentation/places/index#PlaceSearchStatusCodes
+ */
 public class PlacesInvalidRequestException extends PlacesStatusException {
 
 	public PlacesInvalidRequestException(String reason) {
 		super(reason);
+	}
+	public PlacesInvalidRequestException(Throwable cause) {
+		super(cause);
 	}
 
 	private static final long serialVersionUID = 7162403384246207614L;

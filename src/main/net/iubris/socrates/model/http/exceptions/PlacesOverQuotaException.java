@@ -19,11 +19,20 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.exceptions;
 
-
+/** 
+ * Map "OVER_QUERY_LIMIT" from GooglePlacesAPI request
+ * 
+ * @author "Massimiliano Leone - massimiliano.leone@iubris.net"
+ * 
+ * @see https://developers.google.com/maps/documentation/places/index#PlaceSearchStatusCodes
+ */
 public class PlacesOverQuotaException extends PlacesStatusException {
 
 	public PlacesOverQuotaException(String message) {
 		super(message);
+	}
+	public PlacesOverQuotaException(Throwable cause) {
+		super(cause);
 	}
 	private static final long serialVersionUID = -8450217144613028959L;
 }

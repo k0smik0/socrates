@@ -19,11 +19,22 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.exceptions;
 
+/** 
+ * Map a status error response from GooglePlacesAPI request
+ * 
+ * @author "Massimiliano Leone - massimiliano.leone@iubris.net"
+ * 
+ * @see https://developers.google.com/maps/documentation/places/index#PlaceSearchStatusCodes
+ */
 public class PlacesStatusException extends Exception {
 	
 	private static final long serialVersionUID = -8128983763531125004L;
 
 	public PlacesStatusException(String reason) {
 		super(reason);
+	}
+
+	public PlacesStatusException(Throwable cause) {
+		super(cause);
 	}
 }

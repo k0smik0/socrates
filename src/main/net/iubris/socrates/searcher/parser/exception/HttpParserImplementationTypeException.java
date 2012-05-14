@@ -24,6 +24,9 @@ public class HttpParserImplementationTypeException extends Exception {
 	public HttpParserImplementationTypeException(String string) {
 		super(string);
 	}
+	public HttpParserImplementationTypeException(Throwable cause) {
+		super(cause);
+	}
 
 	private static final long serialVersionUID = -6050270033545651412L;
 

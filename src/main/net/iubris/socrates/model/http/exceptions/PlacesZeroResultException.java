@@ -19,12 +19,21 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.exceptions;
 
-
+/** 
+ * Map "ZERO_RESULTS" from GooglePlacesAPI request
+ * 
+ * @author "Massimiliano Leone - massimiliano.leone@iubris.net"
+ * 
+ * @see https://developers.google.com/maps/documentation/places/index#PlaceSearchStatusCodes
+ */
 public class PlacesZeroResultException extends PlacesStatusException {
 
 	private static final long serialVersionUID = 326224504515929176L;
 
 	public PlacesZeroResultException(String reason) {
 		super(reason);
+	}
+	public PlacesZeroResultException(Throwable cause) {
+		super(cause);
 	}
 }
