@@ -23,6 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import net.iubris.socrates.model.data.event.Event;
 import net.iubris.socrates.model.data.geocoding.AddressComponent;
 
 import com.google.api.client.util.Key;
@@ -31,6 +32,9 @@ public class PlaceDetails {
 	
 	@Key("address_components")
 	private List<AddressComponent> addressComponents;
+	
+	@Key("events")
+	private List<Event> events;
 	
 	@Key("formatted_address")
 	private String formattedAddress;	
@@ -57,6 +61,10 @@ public class PlaceDetails {
 
 	public List<AddressComponent> getAddressComponents() {
 		return addressComponents;
+	}
+	
+	public List<Event> getEvents() {
+		return events;
 	}
 
 	public String getFormattedAddress() {
