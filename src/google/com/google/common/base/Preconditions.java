@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * Preconditions.java is part of socrates.
+ * Preconditions.java is part of 'Socrates'.
  * 
  * socrates is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by

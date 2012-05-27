@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * PlaceConfig.java is part of socrates.
+ * PlaceConfig.java is part of 'Socrates'.
  * 
  * socrates is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
