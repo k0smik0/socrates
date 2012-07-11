@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * PlaceConfig.java is part of 'Socrates'
+ * PlacesZeroResultException.java is part of 'Socrates'
  * 
  * 'Socrates' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +17,23 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates.config;
+package net.iubris.socrates.model.http.base.exceptions;
 
-import java.util.List;
-import java.util.Set;
+/** 
+ * Map "ZERO_RESULTS" from GooglePlacesAPI request
+ * 
+ * @author "Massimiliano Leone - massimiliano.leone@iubris.net"
+ * 
+ * @see https://developers.google.com/maps/documentation/places/index#PlaceSearchStatusCodes
+ */
+public class ZeroResultException extends StatusException {
 
-import net.iubris.socrates.model.data.search.PlaceType;
-import net.iubris.socrates.model.url.output.HttpParserOutputType;
+	private static final long serialVersionUID = 326224504515929176L;
 
-public interface PlaceConfig {
-	public String getKey();
-	public int getRadius();
-	public String getApplicationName();
-	public HttpParserOutputType getOutput();	
-	public Set<PlaceType> getTypes();	
-	public List<String> getNames();
-	public boolean isUseSensor();
+	public ZeroResultException(String reason) {
+		super(reason);
+	}
+	public ZeroResultException(Throwable cause) {
+		super(cause);
+	}
 }

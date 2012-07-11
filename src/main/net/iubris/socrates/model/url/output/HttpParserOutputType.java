@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * PlaceConfig.java is part of 'Socrates'
+ * HttpParserOutputType.java is part of 'Socrates'
  * 
  * 'Socrates' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +17,26 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates.config;
+package net.iubris.socrates.model.url.output;
 
-import java.util.List;
-import java.util.Set;
+import com.google.api.client.http.HttpParser;
+import com.google.api.client.http.json.JsonHttpParser;
+import com.google.api.client.json.jackson.JacksonFactory;
 
-import net.iubris.socrates.model.data.search.PlaceType;
-import net.iubris.socrates.model.url.output.HttpParserOutputType;
-
-public interface PlaceConfig {
-	public String getKey();
-	public int getRadius();
-	public String getApplicationName();
-	public HttpParserOutputType getOutput();	
-	public Set<PlaceType> getTypes();	
-	public List<String> getNames();
-	public boolean isUseSensor();
+public enum HttpParserOutputType {	
+	json {
+		@Override
+		public HttpParser getHttpParser() {		
+			return new JsonHttpParser(new JacksonFactory());
+		}
+	},
+	xml {
+		@Override
+		public HttpParser getHttpParser() {
+			//return new XmlHttpParser(new XmlNamespaceDictionary());
+			return null;
+		}		
+	};
+	
+	public abstract HttpParser getHttpParser();	
 }

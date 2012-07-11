@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * PlaceConfig.java is part of 'Socrates'
+ * Location.java is part of 'Socrates'
  * 
  * 'Socrates' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +17,28 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates.config;
+package net.iubris.socrates.model.data.search.geocoding;
 
-import java.util.List;
-import java.util.Set;
+import com.google.android.maps.GeoPoint;
+import com.google.api.client.util.Key;
 
-import net.iubris.socrates.model.data.search.PlaceType;
-import net.iubris.socrates.model.url.output.HttpParserOutputType;
-
-public interface PlaceConfig {
-	public String getKey();
-	public int getRadius();
-	public String getApplicationName();
-	public HttpParserOutputType getOutput();	
-	public Set<PlaceType> getTypes();	
-	public List<String> getNames();
-	public boolean isUseSensor();
+public class Location {
+	
+	@Key("lat")
+	private double latitude;
+	@Key("lng")
+	private double longitude;
+	public double getLatitude() {
+		return latitude;
+	}
+	public double getLongitude() {
+		return longitude;
+	}	
+	public GeoPoint toGeoPoint(){		
+		return new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6));
+	}
+	/*
+	public String toString() {
+		return Verboser.reflectiveToString(this);
+	}*/
 }

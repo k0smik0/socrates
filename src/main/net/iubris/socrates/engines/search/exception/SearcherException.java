@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * PlaceConfig.java is part of 'Socrates'
+ * PlacesSearcherException.java is part of 'Socrates'
  * 
  * 'Socrates' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +17,19 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates.config;
+package net.iubris.socrates.engines.search.exception;
 
-import java.util.List;
-import java.util.Set;
+import net.iubris.socrates.engines.base.exception.PlacesException;
 
-import net.iubris.socrates.model.data.search.PlaceType;
-import net.iubris.socrates.model.url.output.HttpParserOutputType;
+public class SearcherException extends PlacesException {
 
-public interface PlaceConfig {
-	public String getKey();
-	public int getRadius();
-	public String getApplicationName();
-	public HttpParserOutputType getOutput();	
-	public Set<PlaceType> getTypes();	
-	public List<String> getNames();
-	public boolean isUseSensor();
+	public SearcherException(String reason) {
+		super(reason);
+	}
+	public SearcherException(Throwable cause) {
+		super(cause);
+	}	
+	
+	private static final long serialVersionUID = 2184329588892946196L;
+
 }

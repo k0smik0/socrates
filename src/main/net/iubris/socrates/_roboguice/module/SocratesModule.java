@@ -20,19 +20,25 @@
 package net.iubris.socrates._roboguice.module;
 
 import net.iubris.socrates._roboguice.providers.annotations.PlacesHttpParser;
-import net.iubris.socrates._roboguice.providers.annotations.PlacesHttpRequestFactory;
 import net.iubris.socrates._roboguice.providers.annotations.PlacesHttpTransport;
+import net.iubris.socrates._roboguice.providers.http.PlacesHttpRequestFactoryProvider;
 import net.iubris.socrates._roboguice.providers.parser.PlacesHttpParserProvider;
-import net.iubris.socrates._roboguice.providers.url.PlacesHttpRequestFactoryProvider;
-import net.iubris.socrates.engine.details.url.annotation.PlaceUrlFinalPartDetails;
-import net.iubris.socrates.engine.events.url.annotations.PlaceUrlFinalPartEvents;
-import net.iubris.socrates.engine.searches.url.annotation.PlaceUrlFinalPartSearch;
-import net.iubris.socrates.url.PlaceUrlFinalPart;
+import net.iubris.socrates._roboguice.providers.url.common.CommonPartPlaceUrlProvider;
+import net.iubris.socrates._roboguice.providers.url.services.DetailsRequestMandatoryUrlProvider;
+import net.iubris.socrates._roboguice.providers.url.services.SearchRequestMandatoryUrlProvider;
+import net.iubris.socrates.engines.base.annotations.PlacesHttpRequestFactory;
+import net.iubris.socrates.engines.base.url.annotation.CommonPartUrl;
+import net.iubris.socrates.engines.details.url.annotation.DetailsRequestMandatoryUrl;
+import net.iubris.socrates.engines.details.url.annotation.ServiceTypeDetails;
+import net.iubris.socrates.engines.search.url.annotation.SearchRequestMandatoryUrl;
+import net.iubris.socrates.engines.search.url.annotation.ServiceTypeSearch;
+import net.iubris.socrates.model.url.service.ServiceType;
 
-import com.google.api.client.extensions.android2.AndroidHttp;
+import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpParser;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
@@ -41,9 +47,21 @@ public class SocratesModule extends AbstractModule {
 	@Override
 	protected void configure() {				
 
-		bind(PlaceUrlFinalPart.class).annotatedWith(PlaceUrlFinalPartSearch.class).toInstance(PlaceUrlFinalPart.search);
-		bind(PlaceUrlFinalPart.class).annotatedWith(PlaceUrlFinalPartDetails.class).toInstance(PlaceUrlFinalPart.details);
-		bind(PlaceUrlFinalPart.class).annotatedWith(PlaceUrlFinalPartEvents.class).toInstance(PlaceUrlFinalPart.event);
+		bind(ServiceType.class).annotatedWith(ServiceTypeSearch.class).toInstance(ServiceType.search);
+		bind(ServiceType.class).annotatedWith(ServiceTypeDetails.class).toInstance(ServiceType.details);
+		
+		
+		
+		//bindConstant().annotatedWith(ServiceTypeEvent.class).to( ServiceType.event.getServiceName() );
+		
+		
+		bind(GenericUrl.class).annotatedWith(CommonPartUrl.class).toProvider(CommonPartPlaceUrlProvider.class);
+		bind(GenericUrl.class).annotatedWith(SearchRequestMandatoryUrl.class).toProvider(SearchRequestMandatoryUrlProvider.class);
+		bind(GenericUrl.class).annotatedWith(DetailsRequestMandatoryUrl.class).toProvider(DetailsRequestMandatoryUrlProvider.class);
+		
+		
+		
+		
 				
 		bind(HttpRequestFactory.class).annotatedWith(PlacesHttpRequestFactory.class).toProvider(PlacesHttpRequestFactoryProvider.class);
 		bind(HttpParser.class).annotatedWith(PlacesHttpParser.class).toProvider(PlacesHttpParserProvider.class);
@@ -62,7 +80,28 @@ public class SocratesModule extends AbstractModule {
 	
 	@Provides @PlacesHttpTransport
 	public HttpTransport providesHttpTransport() {
-		//return  new NetHttpTransport();
-		return AndroidHttp.newCompatibleTransport();
+		return  new NetHttpTransport();
+		//return AndroidHttp.newCompatibleTransport();
 	}
+	
+	/*
+	@Provides @CommonPartUrl @Singleton
+	public GenericUrl providesCommonPartUrl() {
+		final String placeScheme = "https";
+		final String placeHost = "maps.googleapis.com";	
+		final List<String> placePathParts = Arrays.asList( "","maps","api","place");
+		
+		final GenericUrl genericUrl = new GenericUrl();
+		
+		genericUrl.setScheme(placeScheme);
+		genericUrl.setHost(placeHost);
+		//final List<String> localPlacePathParts = new ArrayList<String>();
+		//localPlacePathParts.addAll(placePathParts);
+		//localPlacePathParts.add(serviceType.getServiceName());
+		genericUrl.setPathParts( placePathParts );
+		
+		return genericUrl;
+	}
+	*/
+	
 }

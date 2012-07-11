@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Copyleft 2012 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
- * PlaceConfig.java is part of 'Socrates'
+ * Event.java is part of 'Socrates'
  * 
  * 'Socrates' is free software; you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -17,20 +17,55 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates.config;
+package net.iubris.socrates.model.data.events;
 
-import java.util.List;
-import java.util.Set;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-import net.iubris.socrates.model.data.search.PlaceType;
-import net.iubris.socrates.model.url.output.HttpParserOutputType;
+import com.google.api.client.util.Key;
 
-public interface PlaceConfig {
-	public String getKey();
-	public int getRadius();
-	public String getApplicationName();
-	public HttpParserOutputType getOutput();	
-	public Set<PlaceType> getTypes();	
-	public List<String> getNames();
-	public boolean isUseSensor();
+public class Event {
+	
+	@Key("event_id")
+	private String eventId;
+	
+	@Key("start_time")
+	private long startTime;
+	
+	@Key("summary")
+	private String summary;
+     
+	@Key("url")
+	private String urlString;
+	
+	private URI uri;
+	
+	public String getEventId() {
+		return eventId;
+	}
+	public long getStartTime() {
+		return startTime;
+	}
+	public String getSummary() {
+		return summary;
+	}
+	
+	public URI getUri() {
+		if (uri == null) {
+			uri = buildURI(urlString);
+		}
+		return uri;
+	}
+	
+	private static URI buildURI(String urlString) {
+		try {
+			if (urlString != null) {			
+				return new URI(urlString);
+			}
+		} catch (URISyntaxException e) {
+			System.out.println(e.getClass());
+			e.printStackTrace();		 
+		}
+		return null;
+	}
 }
