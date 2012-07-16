@@ -19,7 +19,7 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.events.details.exception;
 
-import net.iubris.socrates.model.http.base.exceptions.StatusException;
+import net.iubris.socrates.model.http.response.exceptions.StatusException;
 
 /** 
  * Map "INVALID_REQUEST" from GooglePlacesAPI request

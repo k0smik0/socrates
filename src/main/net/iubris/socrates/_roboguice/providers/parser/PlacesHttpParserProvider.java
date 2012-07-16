@@ -19,8 +19,7 @@
  ******************************************************************************/
 package net.iubris.socrates._roboguice.providers.parser;
 
-import net.iubris.socrates.config.PlaceConfig;
-
+import net.iubris.socrates.config.ConfigMandatory;
 import com.google.api.client.http.HttpParser;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -28,15 +27,22 @@ import com.google.inject.Singleton;
 
 public class PlacesHttpParserProvider implements Provider<HttpParser> {
 
-	private PlaceConfig placeConfig;
+	private ConfigMandatory config;
+//	private final String output;
 
 	@Inject
-	public PlacesHttpParserProvider(PlaceConfig placeConfig) {
-		this.placeConfig = placeConfig;
+	public PlacesHttpParserProvider(ConfigMandatory configMandatory) {
+		this.config = configMandatory;
 	}
+	/*
+	@Inject
+	public PlacesHttpParserProvider(@RequestUrlOutput  HttpParserOutputType output) {
+		this.output = output;
+	}*/
+	
 
 	@Override @Singleton
 	public HttpParser get() {		
-		return placeConfig.getOutput().getHttpParser();
+		return config.getOutput().getHttpParser();
 	}
 }

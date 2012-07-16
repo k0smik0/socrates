@@ -21,8 +21,7 @@ package net.iubris.socrates._roboguice.providers.http;
 
 import net.iubris.socrates._roboguice.providers.annotations.PlacesHttpParser;
 import net.iubris.socrates._roboguice.providers.annotations.PlacesHttpTransport;
-import net.iubris.socrates.config.PlaceConfig;
-
+import net.iubris.socrates.config.ConfigMandatory;
 import com.google.api.client.http.HttpParser;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpTransport;
@@ -34,14 +33,14 @@ public class PlacesHttpRequestFactoryProvider implements Provider<HttpRequestFac
 	
 	private final HttpTransport httpTransport;
 	private final HttpParser httpParser;
-	private final PlaceConfig placesConfig;
+	private final ConfigMandatory config;
 	
 	@Inject
 	public PlacesHttpRequestFactoryProvider(
-			PlaceConfig placesConfig,
+			ConfigMandatory configMandatory,
 			@PlacesHttpTransport HttpTransport httpTransport,  
 			@PlacesHttpParser HttpParser httpParser) {
-		this.placesConfig = placesConfig;
+		this.config = configMandatory;
 		this.httpTransport = httpTransport;
 		this.httpParser = httpParser;
 	}
@@ -49,7 +48,7 @@ public class PlacesHttpRequestFactoryProvider implements Provider<HttpRequestFac
 	@Override @Singleton
 	public HttpRequestFactory get() {		
 		return HttpRequestFactoryFactory.createRequestFactory(httpTransport, 
-				placesConfig.getApplicationName(), 
+				config.getApplicationName(), 
 				httpParser);
 	}
 

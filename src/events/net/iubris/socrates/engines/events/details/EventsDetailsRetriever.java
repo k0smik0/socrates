@@ -24,7 +24,7 @@ import java.io.IOException;
 import net.iubris.socrates.engines.base.annotations.PlacesHttpRequestFactory;
 import net.iubris.socrates.engines.events.details.exception.EventDetailsRetrieverException;
 import net.iubris.socrates.engines.events.details.url.EventDetailsRequestUrlBuilder;
-import net.iubris.socrates.model.http.events.details.EventDetailsResponse;
+import net.iubris.socrates.model.http.response.events.details.EventDetailsResponse;
 
 import org.codehaus.jackson.JsonProcessingException;
 

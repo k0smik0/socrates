@@ -1,6 +1,6 @@
 package net.iubris.socrates.engines.base.url.builders;
 
-import net.iubris.socrates.model.url.parameters.DetailsConfigParameter;
+import net.iubris.socrates.model.http.request.url.parameters.mandatory.details.DetailsMandatoryParameters;
 
 import com.google.api.client.http.GenericUrl;
 
@@ -13,7 +13,7 @@ public abstract class AbstractDetailsRequestUrlBuilder<B> extends AbstractReques
 	@SuppressWarnings("unchecked")
 	public B setReference(String reference) {
 		//setValue(buildedUrl, PlaceUrlConfigParameter.reference, reference);
-		setValue(DetailsConfigParameter.reference, reference);
+		setParameterValue(DetailsMandatoryParameters.reference, reference);
 		return (B) this;
 	}
 

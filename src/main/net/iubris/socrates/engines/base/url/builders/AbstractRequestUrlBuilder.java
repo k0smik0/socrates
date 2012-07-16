@@ -19,11 +19,10 @@
  ******************************************************************************/
 package net.iubris.socrates.engines.base.url.builders;
 
-import com.google.api.client.http.GenericUrl;
 
-import net.iubris.socrates.model.url.parameters.ConfigParameter;
-import net.iubris.socrates.model.url.parameters.DetailsConfigParameter;
-import net.iubris.socrates.model.url.parameters.SearchConfigParameter;
+import net.iubris.socrates.model.http.request.url.ParameterKey;
+
+import com.google.api.client.http.GenericUrl;
 
 public abstract class AbstractRequestUrlBuilder<B> implements IRequestUrlBuilder<B> {	
 	
@@ -71,26 +70,45 @@ public abstract class AbstractRequestUrlBuilder<B> implements IRequestUrlBuilder
 		this.buildedUrl = mandatoryUrl.clone();
 	}	
 	
-	protected void setValue(SearchConfigParameter placeUrlParameter, String value) {		
+	/*
+	protected void setValue(SearchMandatoryParameter urlParameter, String value) {		
 //		if (!isPresent(placeUrlParameter)) buildedUrl.put(placeUrlParameter.name(), "");
 //		buildedUrl.set(placeUrlParameter.name(), value);
-		setParameter(placeUrlParameter, value);
-	}
+		setParameter(urlParameter, value);
+	}*/
 	
-	protected void setValue(DetailsConfigParameter placeUrlParameter, String value) {		
+	/*
+	protected void setValue(DetailsMandatoryParameters urlParameter, String value) {		
 //		if (!isPresent(placeUrlParameter)) buildedUrl.put(placeUrlParameter.name(), "");
 //		buildedUrl.set(placeUrlParameter.name(), value);		
-		setParameter(placeUrlParameter, value);
-	}
+		setParameter(urlParameter, value);
+	}*/
+		
+	/*
+	protected void setParameterValue(ParameterKey urlParameterKey, ParameterValue value) {		
+		setParameterValue(urlParameterKey, value.getName());
+	}*/
 	
-	private void setParameter(ConfigParameter placeUrlParameter, String value) {
-		if (!isPresent(placeUrlParameter)) buildedUrl.put(placeUrlParameter.getName(), "");
-		buildedUrl.set(placeUrlParameter.getName(), value);
+	protected void setParameterValue(ParameterKey urlParameter, String value) {
+		if ( isPresent(urlParameter) ) {
+			buildedUrl.set(urlParameter.name(), value);			
+		} else {
+			buildedUrl.put(urlParameter.name(), value);
+		}
 	}
+	/*
+	protected void setParameterValue(ParameterKey urlParameter) {
+		if ( isPresent(urlParameter) ) {
+			buildedUrl.set(urlParameter.name(), "");			
+		} else {
+			buildedUrl.put(urlParameter.name(), "");
+			buildedUrl.
+		}
+	}*/
 	
-	private boolean isPresent(ConfigParameter placeUrlParameter) {
-		final String key = placeUrlParameter.getName();
-		if (buildedUrl.containsKey(key)) return true;
+	private boolean isPresent(ParameterKey urlParameter) {
+		//final String key = urlParameter.name();
+		if (buildedUrl.containsKey( urlParameter.name() )) return true;
 		return false;
 	}
 

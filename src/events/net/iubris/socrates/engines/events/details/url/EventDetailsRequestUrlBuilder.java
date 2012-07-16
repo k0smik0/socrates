@@ -21,6 +21,7 @@ package net.iubris.socrates.engines.events.details.url;
 
 import net.iubris.socrates.engines.base.url.builders.AbstractDetailsRequestUrlBuilder;
 import net.iubris.socrates.engines.events.details.url.annotation.EventDetailsRequestMandatoryUrl;
+import net.iubris.socrates.model.http.request.url.parameters.mandatory.events.details.EventDetailsMandatoryParameters;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.inject.Inject;
@@ -36,5 +37,10 @@ public class EventDetailsRequestUrlBuilder extends AbstractDetailsRequestUrlBuil
 	@Inject
 	public EventDetailsRequestUrlBuilder(@EventDetailsRequestMandatoryUrl GenericUrl requestUrl) {
 		super(requestUrl);
+	}
+	
+	public EventDetailsRequestUrlBuilder setEventId(String eventId){
+		setParameterValue(EventDetailsMandatoryParameters.eventid, eventId);
+		return this;
 	}
 }

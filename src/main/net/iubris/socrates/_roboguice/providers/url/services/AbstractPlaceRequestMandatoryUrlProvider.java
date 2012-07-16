@@ -1,9 +1,9 @@
 package net.iubris.socrates._roboguice.providers.url.services;
 
-import net.iubris.socrates.config.PlaceConfig;
+import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.engines.base.url.annotation.CommonPartUrl;
-import net.iubris.socrates.model.url.mandatory.PlaceUrlMandatoryParameter;
-import net.iubris.socrates.model.url.service.ServiceType;
+import net.iubris.socrates.model.http.request.url.parameters.mandatory.common.CommonMandatoryParameters;
+import net.iubris.socrates.model.http.request.url.service.ServiceType;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.inject.Inject;
@@ -14,7 +14,7 @@ public abstract class AbstractPlaceRequestMandatoryUrlProvider implements Provid
 	@Inject @CommonPartUrl
 	private GenericUrl urlWithoutParameters;
 	@Inject 
-	private PlaceConfig placeConfig;
+	private ConfigMandatory config;
 	private final ServiceType serviceType;
 //	private final ServiceType serviceType;
 	private GenericUrl mandatoryUrl;
@@ -47,9 +47,9 @@ public abstract class AbstractPlaceRequestMandatoryUrlProvider implements Provid
 		
 		
 
-		setValue(PlaceUrlMandatoryParameter.key, placeConfig.getKey());
+		setValue(CommonMandatoryParameters.key, config.getKey());
 		//System.out.println(mandatoryUrl);
-		setValue(PlaceUrlMandatoryParameter.sensor, placeConfig.isUseSensor());
+		setValue(CommonMandatoryParameters.sensor, config.isUseSensor());
 		//System.out.println(mandatoryUrl);
 		
 		return mandatoryUrl;
@@ -58,10 +58,10 @@ public abstract class AbstractPlaceRequestMandatoryUrlProvider implements Provid
 	protected void addMethod() {}
 	
 	private void addOutput() {
-		mandatoryUrl.appendRawPath("/"+placeConfig.getOutput().name());
+		mandatoryUrl.appendRawPath("/"+config.getOutput().name());
 	}
 	
-	private void setValue(PlaceUrlMandatoryParameter placeUrlParameter, Object value) {
+	private void setValue(CommonMandatoryParameters placeUrlParameter, Object value) {
 		mandatoryUrl.put(placeUrlParameter.name(), value);
 	}
 	

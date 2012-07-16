@@ -30,7 +30,7 @@ import com.xtremelabs.robolectric.Robolectric;
 import com.xtremelabs.robolectric.RobolectricTestRunner;
 
 public class InjectedTestRunner extends RobolectricTestRunner {
-
+	
 	public InjectedTestRunner(Class<?> testClass) throws InitializationError {
 		super(testClass);
 	}
@@ -38,14 +38,12 @@ public class InjectedTestRunner extends RobolectricTestRunner {
 	@Override 
 	public void prepareTest(Object test) {		
 		Context context = Robolectric.application.getApplicationContext();
-System.out.println(context);
+//System.out.println(context);
 	    Injector injector = RoboGuice.getInjector(context);
-System.out.println(injector);	    
+//System.out.println(injector);	    
 	    ContextScope scope = injector.getInstance(ContextScope.class);
-System.out.println(scope);	    
+//System.out.println(scope);	    
 	    scope.enter(context);
-//	    injector.injectMembers(test);
-	}
-
-	
+	    injector.injectMembers(test);
+	}	
 }

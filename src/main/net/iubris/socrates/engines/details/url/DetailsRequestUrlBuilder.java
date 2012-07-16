@@ -21,23 +21,22 @@ package net.iubris.socrates.engines.details.url;
 
 import net.iubris.socrates.engines.base.url.builders.AbstractDetailsRequestUrlBuilder;
 import net.iubris.socrates.engines.details.url.annotation.DetailsRequestMandatoryUrl;
+import net.iubris.socrates.model.http.request.url.language.Language;
+import net.iubris.socrates.model.http.request.url.parameters.optional.details.DetailsOptionalParameters;
+
 import com.google.api.client.http.GenericUrl;
 import com.google.inject.Inject;
 
 public class DetailsRequestUrlBuilder extends AbstractDetailsRequestUrlBuilder<DetailsRequestUrlBuilder> {
-	
-	//@Inject
-	/*
-	public PlaceDetailsRequestUrlBuilder(PlaceDetailsRequestMandatoryUrlBuilder requestUrlMandatoryBuilder,
-			PlaceConfig placesConfig) {
-		super(requestUrlMandatoryBuilder);
-	}*/
-	
-	
-	//injection way
+		
 	@Inject
 	public DetailsRequestUrlBuilder(@DetailsRequestMandatoryUrl GenericUrl requestUrl) {
 		super(requestUrl);
+	}
+	
+	public DetailsRequestUrlBuilder setLanguage(Language language) {
+		setParameterValue(DetailsOptionalParameters.language, language.getLanguageCode());
+		return this;
 	}
 	
 	/*

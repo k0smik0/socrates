@@ -1,7 +1,7 @@
 package net.iubris.socrates._roboguice.providers.url.services;
 
 import net.iubris.socrates.engines.search.url.annotation.ServiceTypeSearch;
-import net.iubris.socrates.model.url.service.ServiceType;
+import net.iubris.socrates.model.http.request.url.service.ServiceType;
 
 import com.google.api.client.http.GenericUrl;
 import com.google.inject.Inject;

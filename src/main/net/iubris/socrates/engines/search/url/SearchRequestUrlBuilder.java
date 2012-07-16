@@ -24,11 +24,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import net.iubris.socrates.config.PlaceConfig;
 import net.iubris.socrates.engines.base.url.builders.AbstractRequestUrlBuilder;
 import net.iubris.socrates.engines.search.url.annotation.SearchRequestMandatoryUrl;
-import net.iubris.socrates.model.data.search.PlaceType;
-import net.iubris.socrates.model.url.parameters.SearchConfigParameter;
+import net.iubris.socrates.model.http.request.url.language.Language;
+import net.iubris.socrates.model.http.request.url.parameters.mandatory.search.SearchMandatoryParameter;
+import net.iubris.socrates.model.http.request.url.parameters.optional.search.SearchOptionalParameter;
+import net.iubris.socrates.model.http.request.url.parameters.optional.search.values.RankBy;
+import net.iubris.socrates.model.http.response.data.search.PlaceType;
 import android.location.Location;
 
 import com.google.api.client.http.GenericUrl;
@@ -36,7 +38,7 @@ import com.google.inject.Inject;
 
 public class SearchRequestUrlBuilder extends AbstractRequestUrlBuilder<SearchRequestUrlBuilder> {
 	
-	private final PlaceConfig placeConfig;
+	//private final PlaceConfig placeConfig;
 
 	//@Inject
 	/*
@@ -49,9 +51,8 @@ public class SearchRequestUrlBuilder extends AbstractRequestUrlBuilder<SearchReq
 	}*/
 	
 	@Inject
-	public SearchRequestUrlBuilder(@SearchRequestMandatoryUrl GenericUrl requestUrl, PlaceConfig placeConfig) {
+	public SearchRequestUrlBuilder(@SearchRequestMandatoryUrl GenericUrl requestUrl) {
 		super(requestUrl);
-		this.placeConfig = placeConfig;
 	}
 	
 	/*
@@ -63,19 +64,28 @@ public class SearchRequestUrlBuilder extends AbstractRequestUrlBuilder<SearchReq
 	
 	public SearchRequestUrlBuilder setRadius(Integer radius) {
 		//setValue(buildedUrl, PlaceUrlConfigParameter.radius, radius);
-		setValue(SearchConfigParameter.radius, radius.toString());
+		setParameterValue(SearchOptionalParameter.radius, ""+radius );
+		return this;
+	}
+	public SearchRequestUrlBuilder removeRadius() {
+		//setValue(buildedUrl, PlaceUrlConfigParameter.radius, radius);
+		buildedUrl.set(SearchOptionalParameter.radius.name(),"");
+		//setParameterValue(SearchOptionalParameter.radius);
+		//System.out.println("SearchRequestUrlBuilder: "+buildedUrl);
 		return this;
 	}
 	
+	/*
 	public SearchRequestUrlBuilder setRadius() {
 		setRadius( placeConfig.getRadius() );
 		return this;
 	}
+	*/
 	
 	public SearchRequestUrlBuilder setLocation(Location location) {
 		//if (location != null) {
 			//setValue(buildedUrl,  PlaceUrlConfigParameter.location, location.getLatitude()+","+location.getLongitude());		
-			setValue(SearchConfigParameter.location, location.getLatitude()+","+location.getLongitude());		
+			setParameterValue(SearchMandatoryParameter.location, location.getLatitude()+","+location.getLongitude());		
 		//}
 		return this;
 	}
@@ -83,26 +93,44 @@ public class SearchRequestUrlBuilder extends AbstractRequestUrlBuilder<SearchReq
 	public SearchRequestUrlBuilder setNames(List<String> names) {
 		if (checkCollection(names)) {
 			//setValue(buildedUrl, PlaceUrlConfigParameter.names, buildNamesValueString(names));
-			setValue(SearchConfigParameter.names, buildNamesValueString(names));
+			setParameterValue(SearchOptionalParameter.names, buildNamesValueString(names));
 		}
 		return this;
 	}
 	
 	public SearchRequestUrlBuilder setTypes(Set<PlaceType> types) {		
 		//setValue(buildedUrl, PlaceUrlConfigParameter.types, buildTypesValueString(types));
-		setValue(SearchConfigParameter.types, buildTypesValueString(types));
+		setParameterValue(SearchOptionalParameter.types, buildTypesValueString(types));
 		return this;
 	}	
 	
+	/*
 	public SearchRequestUrlBuilder setRadiusAndTypesAndNames() {
 		setRadius( placeConfig.getRadius()).
 			setTypes( placeConfig.getTypes() ).
 				setNames( placeConfig.getNames() );
 		return this;		
+	}*/
+	
+	
+	public SearchRequestUrlBuilder setLanguage(Language language) {
+		setParameterValue(SearchOptionalParameter.language, language.getLanguageCode());
+		return this;
 	}
 	
+	public SearchRequestUrlBuilder setKeyword(String keyword) {
+		setParameterValue(SearchOptionalParameter.keyword, keyword);
+		return this;
+	}
+	
+	public SearchRequestUrlBuilder setRankBy(RankBy rankBy) {
+		setParameterValue(SearchOptionalParameter.rankby, rankBy.name());
+		return this;
+	}
+	
+	
 	public SearchRequestUrlBuilder setNextPageToken(String nextPageToken) {
-		setValue(SearchConfigParameter.pagetoken, nextPageToken);
+		setParameterValue(SearchOptionalParameter.pagetoken, nextPageToken);
 		return this;
 	}
 

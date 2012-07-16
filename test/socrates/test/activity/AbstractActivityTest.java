@@ -19,7 +19,7 @@
  ******************************************************************************/
 package socrates.test.activity;
 
-import net.iubris.socrates.config.PlaceConfig;
+import net.iubris.socrates.config.ConfigOptional;
 import net.iubris.socrates.engines.search.url.SearchRequestUrlBuilder;
 
 import org.junit.Before;
@@ -45,7 +45,7 @@ abstract public class AbstractActivityTest extends ActivityTestCase {
 	//private net.iubris.ulysses.finder.generics.list.PlacesFinder<net.iubris.ulysses.model.nongenerics.PlacesList>placesFinderGenericsList;
 	//private PlacesFinder placesFinderNoGenerics;
 	protected Location location;
-	protected PlaceConfig placesConfig;
+	protected ConfigOptional placesConfig;
 	//private XmlAssetReader<PlacesConfig> xmlReader;
 	protected SearchRequestUrlBuilder placeRequestUrlBuilder;
 	protected HttpRequestFactory httpRequestFactory;
@@ -58,34 +58,7 @@ abstract public class AbstractActivityTest extends ActivityTestCase {
 		location.setLongitude(11.376947768);
 		
 		injector = RoboGuice.getInjector( Robolectric.application.getApplicationContext() );
-		
-		//xmlReader = injector.getInstance( Key.get(new TypeLiteral<XmlReader<PlacesConfig>>() {}) );
-		
-		//PlaceRequestUrlBuilder placeRequestUrlBuilder = injector.getInstance(PlaceRequestUrlBuilder.class);
-		
-		//PlacesRequestUrlProvider placesRequestUrlProvider = injector.getInstance(PlacesRequestUrlProvider.class);
-		//System.out.println(placesRequestUrlProvider);
-		
-		//placeRequestUrlBuilder = injector.getInstance(PlaceRequestUrlBuilder.class);
-		
-		placesConfig = injector.getInstance(PlaceConfig.class);
-System.out.println(placesConfig.getApplicationName());
-
-		//httpParser = injector.getInstance(PlacesHttpParserProvider.class).get();
-
-/*
-		System.out.println(
-			injector.getInstance( Key.get(GenericUrl.class, SearchRequestMandatoryUrl.class) )
-		);*/
-		
-		//System.out.println(httpParser);
-		
-		//httpRequestFactory = injector.getInstance(Key.get(HttpRequestFactory.class,PlacesHttpRequestFactory.class));
-		
-		
-
-//		HttpTransport httpTransport = new NetHttpTransport();
-		//httpRequestFactory = HttpRequestFactoryFactory.createRequestFactory(new NetHttpTransport() , placesConfig.getApplicationName(), httpParser);		
-		
+				
+		placesConfig = injector.getInstance(ConfigOptional.class);
 	}	
 }

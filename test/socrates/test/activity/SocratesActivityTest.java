@@ -27,95 +27,80 @@ import net.iubris.socrates.engines.details.DetailsRetriever;
 import net.iubris.socrates.engines.details.exception.DetailsRetrieverException;
 import net.iubris.socrates.engines.search.Searcher;
 import net.iubris.socrates.engines.search.exception.SearcherException;
-import net.iubris.socrates.model.data.details.Details;
-import net.iubris.socrates.model.data.details.OpeningHours;
-import net.iubris.socrates.model.data.details.Period;
-import net.iubris.socrates.model.data.details.review.AspectRating;
-import net.iubris.socrates.model.data.details.review.Review;
-import net.iubris.socrates.model.data.events.Event;
-import net.iubris.socrates.model.data.search.Place;
-import net.iubris.socrates.model.http.details.DetailsResponse;
-import net.iubris.socrates.model.http.search.SearchResponse;
+import net.iubris.socrates.model.http.response.data.details.Details;
+import net.iubris.socrates.model.http.response.data.details.OpeningHours;
+import net.iubris.socrates.model.http.response.data.details.Period;
+import net.iubris.socrates.model.http.response.data.details.review.AspectRating;
+import net.iubris.socrates.model.http.response.data.details.review.Review;
+import net.iubris.socrates.model.http.response.data.events.Event;
+import net.iubris.socrates.model.http.response.data.search.Place;
+import net.iubris.socrates.model.http.response.details.DetailsResponse;
+import net.iubris.socrates.model.http.response.search.SearchResponse;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
+import socrates.test.runner.InjectedTestRunner;
 
-@RunWith(RobolectricTestRunner.class)
-public class SocratesActivityTest extends AbstractActivityTest {
+import android.location.Location;
 
-	//private PlaceFinderGeneric<PlaceList> placeFinderGeneric;
+import com.google.inject.Inject;
+
+//@RunWith(RobolectricTestRunner.class)
+@RunWith(InjectedTestRunner.class)
+public class SocratesActivityTest {
+
+	@Inject
 	private Searcher placeSearcher;
-	//private PlacesSearcherGeneric<PlacesSearchResponse> placeFinderGeneric;
+	@Inject
 	private DetailsRetriever placeDetailsRetriever;
+	
 //	private SearchRequestUrlBuilder placesSearchRequestUrlBuilder;
-	//private DetailsRequestUrlBuilder placeDetailstRequestUrlBuilder; 
+	//private DetailsRequestUrlBuilder placeDetailstRequestUrlBuilder;
+	
+	private Location location;
+	
+	private SearchResponse searchResponse;
 
-	@Before
-	public void setUp() {
-		super.setUp();
-		
-		//PlaceConfigXmlParser placeConfigXmlParser = injector.getInstance(PlaceConfigXmlParser.class);
-		
-		//placesSearchRequestUrlBuilder = injector.getInstance(SearchRequestUrlBuilder.class);
-		//httpRequestFactory = injector.getInstance(HttpRequestFactory.class);
-		//placeDetailstRequestUrlBuilder = injector.getInstance(DetailsRequestUrlBuilder.class);
-		
-		
-		//placeFinderGeneric = new PlacesSearcherGeneric<PlacesSearchResponse>(placesSearchRequestUrlBuilder, httpRequestFactory, PlacesSearchResponse.class);
-		
-		/*if (placeConfigXmlParser != null) {
-//			System.out.println(placeConfigXmlParser.hashCode());
-		}*/
-		
-		//PlaceConfig placeConfig = placeConfigXmlParser.getPlaceConfig();
-		
-		//System.out.println(placeConfig.getOutput());
-		
-		/*
-		PlaceFinderProviderGeneric<PlaceList> placesFinderProviderGeneric = //new PlacesFinderProvider<PlaceList>(placeRequestUrlBuilder, httpRequestFactory, parsingClass);
-			injector.getInstance( Key.get(new TypeLiteral<PlaceFinderProviderGeneric<PlaceList>>() {} ));
-		
-		placeFinderGeneric = //new PlaceFinder<PlaceList>(placeRequestUrlBuilder, httpRequestFactory, parsingClass);
-			placesFinderProviderGeneric.get();
-		*/
-		
-		placeSearcher = injector.getInstance(Searcher.class);
-		//placeSearcher = new PlacesSearcher(placesSearchRequestUrlBuilder, httpRequestFactory);
-		placeDetailsRetriever = injector.getInstance(DetailsRetriever.class);
-		//placeDetailsRetriever = new PlaceDetailsRetriever(placeDetailstRequestUrlBuilder, httpRequestFactory);
-		
+	private int placeNumber =1;
+	
+	public SocratesActivityTest() {
+		location = new Location("GPS");
+		location.setLatitude(44.4937382342);
+		location.setLongitude(11.376947768);
 	}
-	
-	@Test
-	public void dummy(){}	
-	
-	@Test
-	public void findLocations() {
-		int i =1;
-		System.out.println("-- findLocations --");
+		
+	@Before
+	public void searchLocations() {
 		try {
-			SearchResponse searchResponse = placeSearcher.searchPlaces(location);
-			System.out.println(searchResponse.getStatus().getReason());
-			
-			
-			printResultsWithDetail(searchResponse.getResults(),i);			
-			
-			String nextPageToken = searchResponse.getNextPageToken();
-			if (nextPageToken!=null) {
-				SearchResponse nextSearchResponse = placeSearcher.searchPlaces(nextPageToken);
-				printResults(nextSearchResponse.getResults(),i);
-			}
-			
+			placeSearcher.initFromConfig();
+			System.out.println( placeSearcher.getRequestUrl() );
+			searchResponse = placeSearcher.search(location);
+			System.out.println(searchResponse.getStatus().getReason());			
 		} catch (SearcherException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	@Test	
+	public void findLocationsDetails() {
+		//System.out.println("-- findLocationsDetails --");
+		printCalledMethod();
+		try {
+			printResultsWithDetail(searchResponse.getResults(),placeNumber);
 		} catch (DetailsRetrieverException e) {
 			e.printStackTrace();
-		} 
-		System.out.println("-- findLocations --\n");
+		}
+		//System.out.println("-- findLocationsDetails --\n");
+		printCalledMethod();
 	}
+	
+	private void printCalledMethod(){
+		StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();		
+		System.out.println("--"+stackTrace [ 2 ].getMethodName()+" --\n"	);		
+	}
+	
 	
 	private void printResults(List<Place> places,int i) {
 		for (Place p: places) {
@@ -127,6 +112,8 @@ public class SocratesActivityTest extends AbstractActivityTest {
 		}
 	}
 	
+	
+	
 	private void printResultsWithDetail(List<Place> places,int i) throws DetailsRetrieverException {
 		for (Place p: places) {
 			System.out.print(i+" ");
@@ -135,12 +122,16 @@ public class SocratesActivityTest extends AbstractActivityTest {
 			System.out.print(p.getGeometry().getLocation().getLatitude()+" "+p.getGeometry().getLocation().getLongitude()+" ");
 			
 			String reference = p.getReference();
+			//System.out.println(reference);
 			DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieveDetails(reference);
+			
 			Details result = placeDetailsResponse.getResult();
+			
 			//System.out.print(result.getUri()+" ");
+			System.out.print( result.getFormattedAddress() );
 			//System.out.print(result.getWebsite()+" ");
-			printOpening( result.getOpeningHours() );
-			printEvents(result.getEvents());			
+			//printOpening( result.getOpeningHours() );
+			//printEvents( result.getEvents() );			
 			//printReviews(result.getReviews());
 			
 			System.out.println("");
@@ -164,7 +155,7 @@ public class SocratesActivityTest extends AbstractActivityTest {
 		while(iterator.hasNext()) {
 			Event event = iterator.next();
 			System.out.println( event.getSummary()+" "+event.getStartTime() );
-		}		
+		}
 	}
 	
 	private void printReviews(List<Review> reviews){
@@ -186,13 +177,33 @@ public class SocratesActivityTest extends AbstractActivityTest {
 		}
 	}
 	
+	@Test
+	public void findNext() throws InterruptedException {
+		printCalledMethod();
+		System.out.println( searchResponse.toString() );
+		String nextPageToken = searchResponse.getNextPageToken();
+		if (nextPageToken!=null) {
+			Thread.sleep(10*1000);
+			//System.out.println("token not null");
+			SearchResponse nextSearchResponse =null;
+			try {
+				nextSearchResponse = placeSearcher.search(nextPageToken);
+				System.out.println( nextSearchResponse.getStatus() );
+			} catch (SearcherException e) {
+				e.printStackTrace();
+			}
+			printResults(nextSearchResponse.getResults(),placeNumber);
+		}
+		printCalledMethod();
+	}
+	
 	
 	
 	//@Test
-	public void findLocationsDetails() {
+	public void retrieveDetails() {
 		System.out.println("-- findLocationsDetails --");			
 		try {
-			SearchResponse  placeList = placeSearcher.searchPlaces(location);
+			SearchResponse  placeList = placeSearcher.search(location);
 			for (Place place: placeList.getResults()) {
 				String reference = place.getReference();
 				DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieveDetails(reference);

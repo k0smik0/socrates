@@ -23,13 +23,22 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-import org.codehaus.jackson.JsonProcessingException;
-
+import net.iubris.socrates.config.ConfigOptional;
 import net.iubris.socrates.engines.base.annotations.PlacesHttpRequestFactory;
+import net.iubris.socrates.engines.search.exception.MalformedSearchUrlException;
+import net.iubris.socrates.engines.search.exception.NullConfigException;
 import net.iubris.socrates.engines.search.exception.SearcherException;
 import net.iubris.socrates.engines.search.url.SearchRequestUrlBuilder;
-import net.iubris.socrates.model.data.search.PlaceType;
-import net.iubris.socrates.model.http.search.SearchResponse;
+import net.iubris.socrates.engines.search.url.annotation.Config;
+import net.iubris.socrates.engines.search.url.annotation.SearchRequestMandatoryUrl;
+import net.iubris.socrates.model.http.request.url.ParameterKey;
+import net.iubris.socrates.model.http.request.url.language.Language;
+import net.iubris.socrates.model.http.request.url.parameters.optional.search.SearchOptionalParameter;
+import net.iubris.socrates.model.http.request.url.parameters.optional.search.values.RankBy;
+import net.iubris.socrates.model.http.response.data.search.PlaceType;
+import net.iubris.socrates.model.http.response.search.SearchResponse;
+
+import org.codehaus.jackson.JsonProcessingException;
 
 import android.location.Location;
 
@@ -39,48 +48,171 @@ import com.google.api.client.http.HttpRequestFactory;
 import com.google.inject.Inject;
 
 public class Searcher {
-		/*
-	@Inject
-	public PlacesSearcher(SearchRequestUrlBuilder placeRequestUrlBuilder,
-			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory) {
-		super(placeRequestUrlBuilder,httpRequestFactory,PlacesSearchResponse.class);
-	}*/
 	
-	private final SearchRequestUrlBuilder placeRequestUrlBuilder;
+	private final SearchRequestUrlBuilder searchRequestUrlBuilder;
 	private final HttpRequestFactory httpRequestFactory;
-	//private final Class<PlacesSearchResponse> parsingClass;	
+
+	private final GenericUrl nextPageTokenRequestUrl;
+	//private final Integer radius;	
+
+	private ConfigOptional configOptional;
+	
 		
 	@Inject
-	public Searcher(SearchRequestUrlBuilder placeRequestUrlBuilder,
-			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory/*, 
-			Class<PlacesSearchResponse> parsingClass*/) {
-		this.placeRequestUrlBuilder = placeRequestUrlBuilder;
+	public Searcher(SearchRequestUrlBuilder searchRequestUrlBuilder,
+			@SearchRequestMandatoryUrl GenericUrl nextPageTokenRequestUrl,
+			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory//,
+			//@Radius Integer radius
+			/*,
+			ConfigOptional configOptional*/) {
+		this.searchRequestUrlBuilder = searchRequestUrlBuilder;
+		this.nextPageTokenRequestUrl = nextPageTokenRequestUrl;
+		//this.radius = radius;
+		this.nextPageTokenRequestUrl.put(SearchOptionalParameter.pagetoken.name(), "");
+		//urlForNextPage = searchRequestUrlBuilder.getUrl().clone();
 		this.httpRequestFactory = httpRequestFactory;
-		//this.parsingClass = parsingClass;
+		//this.configOptional = configOptional;		
 	}
-
-	public SearchResponse searchPlaces(Location location) throws  SearcherException {
-		placeRequestUrlBuilder.resetUrl().setRadiusAndTypesAndNames().setLocation(location);
-		return searchPlaces(placeRequestUrlBuilder);	
+	
+	@Inject(optional=true)
+	public void setConfig(@Config ConfigOptional configOptional) {
+		this.configOptional = configOptional;
+	}
+	
+	public Searcher reset() {
+		searchRequestUrlBuilder.resetUrl();
+		return this;
+	}
+	public Searcher initFromConfig() throws NullConfigException, MalformedSearchUrlException {
+		if (configOptional==null ) throw new NullConfigException("config not setted"); 
+		
+		Integer radius = configOptional.getRadius();
+		if (radius !=null && radius >0) setRadius(configOptional.getRadius());	
+		
+		Language language = configOptional.getLanguage();
+		if (language != null) setLanguage( language );
+		
+		String keyword = configOptional.getKeyword();
+		if (keyword != null && keyword != "") setKeyword(keyword);
+		
+		Set<PlaceType> types = configOptional.getTypes();
+		if (types != null && !types.isEmpty()) setTypes(types);
+		
+		List<String> names = configOptional.getNames();
+		if (names != null && !names.isEmpty()) setNames(names);		
+		
+		RankBy rankBy = configOptional.getRankBy();
+		if (rankBy != null) setRankBy(rankBy);
+		
+		return this;
+	}
+	
+	public GenericUrl getRequestUrl() {
+		return searchRequestUrlBuilder.getUrl();
+	}
+		
+	public Searcher setRadius(int radius) /*throws MalformedSearchUrlException */{
+		//if (radius<0) throw new MalformedSearchUrlException("radius must be greater than zero");			
+		searchRequestUrlBuilder.setRadius(radius);		
+		return this;
+	}
+		
+	public Searcher setLanguage(Language language) {		
+		searchRequestUrlBuilder.setLanguage(language);
+		return this;
+	}
+	public Searcher setTypes(Set<PlaceType> types){
+		searchRequestUrlBuilder.setTypes(types);
+		return this;
 	}	
+	public Searcher setNames(List<String> names){
+		searchRequestUrlBuilder.setNames(names);
+		return this;
+	}
+	public Searcher setKeyword(String keyword){
+		searchRequestUrlBuilder.setKeyword(keyword);
+		return this;
+	}
+	public Searcher setRankBy(RankBy rankBy) throws MalformedSearchUrlException {		
+		if (rankBy.equals(RankBy.distance)) {
+			//if ( isParameterInUrl(SearchOptionalParameter.radius)) {
+				searchRequestUrlBuilder.removeRadius();
+				searchRequestUrlBuilder.setRankBy(rankBy);
+				return this;
+				//throw new MalformedSearchUrlException("you must not provide radius");
+		} else if (rankBy.equals(RankBy.prominence)) {
+			if ( isParameterInUrl(SearchOptionalParameter.types) || isParameterInUrl(SearchOptionalParameter.names) || isParameterInUrl(SearchOptionalParameter.keyword) ) {
+				searchRequestUrlBuilder.setRankBy(rankBy);
+				return this;
+			}
+		}		
+		throw new MalformedSearchUrlException("you must provide one of 'names', 'types' or 'keyword' parameters");
+	}
+	private boolean isParameterInUrl(ParameterKey parameter){
+		return searchRequestUrlBuilder.getUrl().containsKey(parameter.name());
+	}
+	
+	
+		
+	public SearchResponse search(Location location) throws SearcherException {
+		searchRequestUrlBuilder.setLocation(location);
+		System.out.println( searchRequestUrlBuilder.getUrl() );
+		return searchPlaces( searchRequestUrlBuilder.getUrl() );
+	}
+	public SearchResponse search(String nextPageToken) throws SearcherException {
+		nextPageTokenRequestUrl.set(SearchOptionalParameter.pagetoken.name(), nextPageToken);		
+		return searchPlaces( nextPageTokenRequestUrl );
+	}
+	
+		
+	
+/*
+	public SearchResponse searchPlaces(Location location) throws SearcherException {
+		searchRequestUrlBuilder.resetUrl().setRadiusAndTypesAndNames().setLocation(location);
+System.out.println(searchRequestUrlBuilder.getUrl());
+		return searchPlaces(searchRequestUrlBuilder);	
+	}
+	public SearchResponse searchPlaces(Location location, int radius) throws SearcherException {
+		searchRequestUrlBuilder.resetUrl().setRadius(radius).setLocation(location);
+		return searchPlaces(searchRequestUrlBuilder);
+	}
 	public SearchResponse searchPlaces(Location location, Set<PlaceType> types) throws SearcherException {
-		placeRequestUrlBuilder.resetUrl().setRadius().setLocation(location).setTypes(types);
-		return searchPlaces(placeRequestUrlBuilder);
+		searchRequestUrlBuilder.resetUrl().setRadius().setLocation(location).setTypes(types);
+		return searchPlaces(searchRequestUrlBuilder);
+	}
+	public SearchResponse searchPlaces(Location location, List<String> names) throws SearcherException {
+		searchRequestUrlBuilder.resetUrl().setRadius().setLocation(location).setNames(names);
+		return searchPlaces(searchRequestUrlBuilder);
 	}
 	public SearchResponse searchPlaces(Location location, Set<PlaceType> types, List<String> names) throws SearcherException {
-		placeRequestUrlBuilder.resetUrl().setRadius().setLocation(location).setTypes(types).setNames(names);
-		return searchPlaces(placeRequestUrlBuilder);
+		searchRequestUrlBuilder.resetUrl().setRadius().setLocation(location).setTypes(types).setNames(names);
+		return searchPlaces(searchRequestUrlBuilder);
 	}
+	public SearchResponse searchPlaces(Location location, int radius, Set<PlaceType> types) throws SearcherException {
+		searchRequestUrlBuilder.resetUrl().setRadius(radius).setLocation(location).setTypes(types);
+		return searchPlaces(searchRequestUrlBuilder);
+	}
+	public SearchResponse searchPlaces(Location location, int radius, List<String> names) throws SearcherException {
+		searchRequestUrlBuilder.resetUrl().setRadius(radius).setLocation(location).setNames(names);
+		return searchPlaces(searchRequestUrlBuilder);
+	}
+	public SearchResponse searchPlaces(Location location, int radius, Set<PlaceType> types, List<String> names) throws SearcherException {
+		searchRequestUrlBuilder.resetUrl().setRadius(radius).setLocation(location).setTypes(types).setNames(names);
+		return searchPlaces(searchRequestUrlBuilder);
+	}
+		
 	public SearchResponse searchPlaces(String nextPageToken) throws SearcherException {
-		placeRequestUrlBuilder.resetUrl().setNextPageToken(nextPageToken);
-//		System.out.println( placeRequestUrlBuilder.getUrl() );
-		return searchPlaces(placeRequestUrlBuilder);
+		searchRequestUrlBuilder
+		.resetUrl()
+		.setNextPageToken(nextPageToken);
+System.out.println( searchRequestUrlBuilder.getUrl() );
+		return searchPlaces(searchRequestUrlBuilder);
 	}
+	*/
 	
-	
-	private SearchResponse searchPlaces(SearchRequestUrlBuilder placeRequestUrlBuilder) throws SearcherException {
-		return searchPlaces(httpRequestFactory, placeRequestUrlBuilder.getUrl()/*, parsingClass*/);
-	}
+	private SearchResponse searchPlaces(GenericUrl searchRequestUrl) throws SearcherException {		
+		return searchPlaces(httpRequestFactory, searchRequestUrl);
+	}	
 	
 	private SearchResponse searchPlaces(HttpRequestFactory httpRequestFactory, GenericUrl genericUrl/*, Class<PlacesSearchResponse> parsingClass*/) throws SearcherException {
 		try {
@@ -97,21 +229,4 @@ public class Searcher {
 			throw new SearcherException(e.getMessage());
 		}
 	}
-	
-	/*
-	private static <PL> PL searchPlaces(HttpRequestFactory httpRequestFactory, GenericUrl genericUrl, Class<PL> parsingClass) throws PlacesSearcherException {
-		try {
-			//Ln.d(genericUrl);
-			return httpRequestFactory.buildGetRequest(genericUrl).execute().parseAs(parsingClass);
-		} catch (GoogleJsonResponseException e) {
-			e.printStackTrace();
-			throw new PlacesSearcherException(e.getMessage());
-		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-			throw new PlacesSearcherException(e.getMessage());
-		} catch (IOException e) {
-			e.printStackTrace();
-			throw new PlacesSearcherException(e.getMessage());
-		}
-	}*/
 }

@@ -24,53 +24,46 @@ import java.io.IOException;
 import net.iubris.socrates.engines.base.annotations.PlacesHttpRequestFactory;
 import net.iubris.socrates.engines.details.exception.DetailsRetrieverException;
 import net.iubris.socrates.engines.details.url.DetailsRequestUrlBuilder;
-import net.iubris.socrates.model.http.details.DetailsResponse;
+import net.iubris.socrates.model.http.request.url.language.Language;
+import net.iubris.socrates.model.http.response.details.DetailsResponse;
 
 import org.codehaus.jackson.JsonProcessingException;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.inject.Inject;
 
 public class DetailsRetriever {
 	
-	private final DetailsRequestUrlBuilder placeDetailsRequestUrlBuilder;
+	private final DetailsRequestUrlBuilder detailsRequestUrlBuilder;
 	private final HttpRequestFactory httpRequestFactory;
 	
 	@Inject
-	public DetailsRetriever(DetailsRequestUrlBuilder placeDetailstRequestUrlBuilder,
+	public DetailsRetriever(DetailsRequestUrlBuilder detailstRequestUrlBuilder,
 			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory) {
-		this.placeDetailsRequestUrlBuilder = placeDetailstRequestUrlBuilder;
+		this.detailsRequestUrlBuilder = detailstRequestUrlBuilder;
 		this.httpRequestFactory = httpRequestFactory;
 	}
 	
-	public DetailsResponse retrieveDetails(String reference) throws DetailsRetrieverException {
-//Ln.d(reference);		
-		placeDetailsRequestUrlBuilder.resetUrl().setReference(reference);
-		try {
-
-//			GenericUrl url = placeDetailsRequestUrlBuilder.getUrl();
-//			
-//			HttpRequest httpRequest = httpRequestFactory.buildGetRequest(url);
-/*
-			HttpResponse httpResponse = httpRequestFactory.buildGetRequest(placeDetailsRequestUrlBuilder.getUrl()).execute();
-
-			//System.out.println( httpResponse.parseAsString() );
-			
-			DetailsResponse detailsResponse = httpResponse.parseAs(DetailsResponse.class);
-								
-			 Iterator<Review> iterator = detailsResponse.getResult().getReviews().iterator();
-			 while (iterator.hasNext()) {
-				 List<AspectRating> aspects = iterator.next().getAspects();
-				 Iterator<AspectRating> iterator2 = aspects.iterator();
-				 while (iterator2.hasNext()) {
-					 System.out.println( iterator2.next().getType() );
-				 }
-			 }
+	public DetailsRetriever setLanguage(Language language) {		
+		detailsRequestUrlBuilder.setLanguage(language);
+		return this;
+	}
 	
-			return detailsResponse;
-			*/
-			return httpRequestFactory.buildGetRequest(placeDetailsRequestUrlBuilder.getUrl()).execute().parseAs(DetailsResponse.class);
+	public DetailsRetriever reset(){
+		detailsRequestUrlBuilder.resetUrl();
+		return this;
+	}
+	
+	public DetailsResponse retrieveDetails(String reference) throws DetailsRetrieverException {	
+		detailsRequestUrlBuilder.setReference(reference);
+		return retrieve(detailsRequestUrlBuilder.getUrl());
+	}
+	
+	private DetailsResponse retrieve(GenericUrl genericUrl) throws DetailsRetrieverException {
+		try {
+			return httpRequestFactory.buildGetRequest(detailsRequestUrlBuilder.getUrl()).execute().parseAs(DetailsResponse.class);
 		} catch (GoogleJsonResponseException e) {
 			e.printStackTrace();
 			throw new DetailsRetrieverException(e.getMessage());
@@ -80,12 +73,10 @@ public class DetailsRetriever {
 		} catch (IOException e) {
 			e.printStackTrace();
 			throw new DetailsRetrieverException(e.getMessage());
-		}/*catch (NullPointerException e) {
+		}catch (NullPointerException e) {
 			e.printStackTrace();
-			throw new PlaceDetailsRetrieverException(e.getMessage());
-		}*/
+			throw new DetailsRetrieverException( e.getMessage() );
+		}
 	}
 	
-
-
 }

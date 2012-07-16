@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="roboguice_modules">
+        <!-- 
         <item>net.iubris.socrates._roboguice.module.SocratesModule</item>
+         -->
         <item>socrates.test._roboguice.module.SocratesModuleDemo</item>        
     </string-array>
     

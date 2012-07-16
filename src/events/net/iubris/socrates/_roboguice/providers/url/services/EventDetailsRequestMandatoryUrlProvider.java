@@ -1,8 +1,8 @@
 package net.iubris.socrates._roboguice.providers.url.services;
 
 import net.iubris.socrates.engines.events.details.url.annotation.ServiceTypeEvent;
-import net.iubris.socrates.model.url.service.ServiceType;
-import net.iubris.socrates.model.url.service.events.method.EventMethod;
+import net.iubris.socrates.model.http.request.url.service.ServiceType;
+import net.iubris.socrates.model.http.request.url.service.events.method.EventMethod;
 
 import com.google.inject.Inject;
 
