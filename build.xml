@@ -12,9 +12,9 @@
 	
 	
 	<property name="android-path" value="/data/fucina/develop/usr/apps/android-sdk-linux_86/" />
-	<property name="android-sdk-target-version" value="15"/>
+	<property name="android-sdk-target-version" value="16"/>
 		
-	<property name="main-libs-dir" value="libs"/>
+	<property name="main-libs-dir" value="lib"/>
 			
 	<!-- don't touch below -->
 	

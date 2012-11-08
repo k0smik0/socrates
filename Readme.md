@@ -9,9 +9,9 @@ Why *Socrates*? Because, as homonim philosopher said:
 
 And so Socrates component just search (google) places.
 
-<br/><br/>
+<br/>
 
-###usage:<br/><br/>
+###usage:<br/>
 <pre>
 Location here = ... // my last best location
 Searcher placesSearcher = ... // manually istanced via getInstance, or use @Inject
@@ -64,6 +64,24 @@ First interface implementation is mandatory (as the name), while the second not.
 And for ConfigOptional, you must bind specifiyng its annotation, as below:
 <pre>bind(ConfigOptional.class).annotatedWith(Config.class).toInstance(new ConfigOptionalImpl());</pre>
 This bind is requested in order to have Searcher's setConfig injected and configOptional field properly assigned (if this field is null initConfig method will throw exception)    
+<br/><br/>
+
+In order to compile correctly you have to put various jar in "lib" directory (then move all them in main project "libs" directory):    
+  
+from [google api java client](http://code.google.com/p/google-api-java-client/wiki/Setup):
+
+- google-api-client-LAST_VERSION.jar 
+- google-http-client-LAST_VERSION.jar
+- google-http-client-extensions-android2-LAST_VERSION.jar
+- [jackson-mini-1.9.LAST_MINOR_VERSION.jar](http://jackson.codehaus.org/1.9.11/jackson-mini-1.9.11.jar)
+  
+from [roboguice](http://repo1.maven.org/maven2/org/roboguice/roboguice/2.0):
+  
+- [roboguice-2.0.jar](http://repo1.maven.org/maven2/org/roboguice/roboguice/2.0/roboguice-2.0.jar)
+- [javax.inject.jar](http://mavenhub.com/mvn/central/javax.inject/javax.inject/1) 
+- [sisu-guice-3.0.3-no_aop.jar](http://mavenhub.com/mvn/central/org.sonatype.sisu/sisu-guice/3.0.0)
+
+
 <br/><br/><br/><br/><br/>
 heavily ispired by:
 [http://ddewaele.blogspot.it/2011/05/introducing-google-places-api.html](http://ddewaele.blogspot.it/2011/05/introducing-google-places-api.html)
