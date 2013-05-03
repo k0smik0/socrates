@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/core"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry excluding="net/iubris/socrates/config/xml/|net/iubris/socrates/config/xml/annotation/|net/iubris/socrates/utils/|net/iubris/socrates/utils/crypt/" kind="src" path="src/crypto"/>
+	<classpathentry excluding="net/iubris/socrates/utils/Geocoder.java" kind="src" path="src/utils"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/prometeus"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/roboguice"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

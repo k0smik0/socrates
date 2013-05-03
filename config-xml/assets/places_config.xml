@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<placesconfig>
+	<api_key>AIzaSyAfOlNmRr5G-4BPDd1faYsn9kvkV5ebBRk</api_key>
+	<radius>1500</radius>
+	<use_sensor>true</use_sensor>
+	<output>json</output>
+	<application_name>hermesdemo</application_name>
+	<types>
+	    <type>bar</type>
+	    <type>cafe</type>
+	    <type>liquor_store</type>
+	</types>
+	<!-- names>
+	    <name>pub</name>
+	    <name>bar</name>
+	    <name>cafe</name>
+	    <name>enoteca</name>
+	    <name>wine</name>
+	</names-->
+	<!-- parsing_class>net.iubris.ulysses.model.nongenerics.PlacesList</parsing_class-->	
+</placesconfig>
