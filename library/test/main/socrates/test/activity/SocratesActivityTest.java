@@ -28,7 +28,7 @@ import javax.inject.Inject;
 import net.iubris.socrates.engines.details.DetailsRetriever;
 import net.iubris.socrates.engines.details.exception.DetailsRetrieverException;
 import net.iubris.socrates.engines.search.Searcher;
-import net.iubris.socrates.engines.search.exception.SearcherException;
+import net.iubris.socrates.engines.search.exception.PlacesSearcherException;
 import net.iubris.socrates.model.http.response.data.details.Details;
 import net.iubris.socrates.model.http.response.data.details.OpeningHours;
 import net.iubris.socrates.model.http.response.data.details.Period;
@@ -80,7 +80,7 @@ public class SocratesActivityTest {
 			System.out.println( "RequestUrl: "+placeSearcher.getRequestUrl() );
 			searchResponse = placeSearcher.search(location);
 			System.out.println( "status reason:" +searchResponse.getStatus().getReason());			
-		} catch (SearcherException e) {
+		} catch (PlacesSearcherException e) {
 			e.printStackTrace();
 		}
 	}
@@ -194,7 +194,7 @@ public class SocratesActivityTest {
 			try {
 				nextSearchResponse = placeSearcher.search(nextPageToken);
 				System.out.println( "nextSearchResponse.getStatus(): "+ nextSearchResponse.getStatus() );
-			} catch (SearcherException e) {
+			} catch (PlacesSearcherException e) {
 				e.printStackTrace();
 			}
 			printResults(nextSearchResponse.getResults(),placeNumber);
@@ -220,7 +220,7 @@ public class SocratesActivityTest {
 					System.out.println("event: "+events.iterator().next());
 				}
 			}
-		} catch (SearcherException e) {				
+		} catch (PlacesSearcherException e) {				
 			e.printStackTrace();
 		} catch (DetailsRetrieverException e) {				
 			e.printStackTrace();

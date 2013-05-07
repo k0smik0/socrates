@@ -21,16 +21,15 @@ package net.iubris.socrates.engines.search.exception;
 
 import net.iubris.socrates.engines.base.exception.PlacesException;
 
-public class SearcherException extends PlacesException {
+public class PlacesSearcherException extends PlacesException {
 
-	public SearcherException(String reason) {
+	public PlacesSearcherException(String reason) {
 		super(reason);
 	}
-	public SearcherException(Throwable cause) {
+	public PlacesSearcherException(Throwable cause) {
 		super(cause);
 	}	
-	
-	public SearcherException(String detailMessage, Throwable throwable) {
+	public PlacesSearcherException(String detailMessage, Throwable throwable) {
 		super(detailMessage, throwable);
 	}
 

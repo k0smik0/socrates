@@ -42,7 +42,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
-public abstract class SocratesModule extends AbstractModule {
+public abstract class AbstractSocratesModule extends AbstractModule {
 
 	@Override
 	protected final void configure() {
@@ -57,10 +57,12 @@ public abstract class SocratesModule extends AbstractModule {
 		bind(HttpRequestFactory.class).annotatedWith(PlacesHttpRequestFactory.class).toProvider(PlacesHttpRequestFactoryProvider.class);
 		bind(HttpParser.class).annotatedWith(PlacesHttpParser.class).toProvider(PlacesHttpParserProvider.class);
 
-		ownConfigure();
+		bindConfigMandatory();
+		bindConfigOptional();
 	}
 	
-	protected abstract void ownConfigure();
+	protected abstract void bindConfigMandatory();
+	protected abstract void bindConfigOptional();
 
 	@Provides @PlacesHttpTransport
 	public HttpTransport providesHttpTransport() {

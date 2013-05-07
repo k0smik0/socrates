@@ -5,7 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import net.iubris.socrates.engines.search.Searcher;
-import net.iubris.socrates.engines.search.exception.SearcherException;
+import net.iubris.socrates.engines.search.exception.PlacesSearcherException;
 import net.iubris.socrates.model.http.response.data.search.Place;
 import net.iubris.socrates.model.http.response.search.SearchResponse;
 import net.iubris.socrates_sample.R;
@@ -42,7 +42,7 @@ public class SocratesSampleActivity extends RoboActivity {
 			location.setLongitude(11.342728);
 			new RoboAsyncTask<String>(SocratesSampleActivity.this) {
 				@Override
-				public String call() throws SearcherException {
+				public String call() throws PlacesSearcherException {
 					SearchResponse searchResponse = placeSearcher.search(location);
 					return parseResults( searchResponse.getResults() );
 				}

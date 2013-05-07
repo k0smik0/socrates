@@ -6,11 +6,12 @@ import net.iubris.socrates.engines.events.details.url.annotation.ServiceTypeEven
 import net.iubris.socrates.model.http.request.url.service.ServiceType;
 
 import com.google.api.client.http.GenericUrl;
+import com.google.inject.AbstractModule;
 
-public class SocratesModuleEvents extends SocratesModule {
+public class SocratesModuleEvents extends AbstractModule {
 
 	@Override
-	protected void ownConfigure() {
+	protected void configure() {
 		bind(ServiceType.class).annotatedWith(ServiceTypeEvent.class).toInstance(ServiceType.event);
 		bind(GenericUrl.class).annotatedWith(EventDetailsRequestMandatoryUrl.class).toProvider(EventDetailsRequestMandatoryUrlProvider.class);
 	}

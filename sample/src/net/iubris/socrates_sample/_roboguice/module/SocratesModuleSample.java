@@ -1,21 +1,24 @@
 package net.iubris.socrates_sample._roboguice.module;
 
-import net.iubris.socrates._roboguice.module.SocratesModule;
+import net.iubris.socrates._roboguice.module.AbstractSocratesModule;
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.config.ConfigOptional;
 import net.iubris.socrates.engines.search.url.annotation.Config;
 import net.iubris.socrates_sample.config.ConfigMandatoryImpl;
 import net.iubris.socrates_sample.config.ConfigOptionalImpl;
 
-public class SocratesModuleSample extends SocratesModule {
+public class SocratesModuleSample extends AbstractSocratesModule {
 
 	@Override
-	protected void ownConfigure() {
+	protected void bindConfigMandatory() {
 		bind(ConfigMandatory.class).toInstance(new ConfigMandatoryImpl());
-		bind(ConfigMandatoryImpl.class).asEagerSingleton();		
+		bind(ConfigMandatoryImpl.class).asEagerSingleton();
+	}
 
+	@Override
+	protected void bindConfigOptional() {
 		bind(ConfigOptional.class).annotatedWith(Config.class).toInstance(new ConfigOptionalImpl());
-		bind(ConfigOptionalImpl.class).asEagerSingleton();
+		bind(ConfigOptionalImpl.class).asEagerSingleton();		
 	}
 
 	/*

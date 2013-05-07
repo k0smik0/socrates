@@ -19,7 +19,7 @@
 	<!-- don't touch below -->
 	
 	<property name="src.dir" value="src" />
-	<property name="build.dir" value="build" />	
+	<property name="build.dir" value="build" />
 	
 	<property name="jar-google.file" value="${build.dir}/jars/google-preconditions.jar" />
 	<property name="jar-main.file" value="${build.dir}/jars/socrates-core.jar" />

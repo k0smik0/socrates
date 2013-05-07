@@ -29,7 +29,7 @@ import net.iubris.socrates.config.ConfigOptional;
 import net.iubris.socrates.engines.base.annotations.PlacesHttpRequestFactory;
 import net.iubris.socrates.engines.search.exception.MalformedSearchUrlConfigException;
 import net.iubris.socrates.engines.search.exception.NullConfigException;
-import net.iubris.socrates.engines.search.exception.SearcherException;
+import net.iubris.socrates.engines.search.exception.PlacesSearcherException;
 import net.iubris.socrates.engines.search.url.SearchRequestUrlBuilder;
 import net.iubris.socrates.engines.search.url.annotation.Config;
 import net.iubris.socrates.engines.search.url.annotation.SearchRequestMandatoryUrl;
@@ -164,12 +164,12 @@ public class Searcher {
 	
 	
 		
-	public SearchResponse search(Location location) throws SearcherException {
+	public SearchResponse search(Location location) throws PlacesSearcherException {
 		searchRequestUrlBuilder.setLocation(location);
 System.out.println( "Searcher: 165 - searchRequestUrlBuilder.getUrl(): "+searchRequestUrlBuilder.getUrl() );
 		return searchPlaces( searchRequestUrlBuilder.getUrl() );
 	}
-	public SearchResponse search(String nextPageToken) throws SearcherException {
+	public SearchResponse search(String nextPageToken) throws PlacesSearcherException {
 		nextPageTokenRequestUrl.set(SearchOptionalParameter.pagetoken.name(), nextPageToken);		
 		return searchPlaces( nextPageTokenRequestUrl );
 	}
@@ -220,23 +220,20 @@ System.out.println( searchRequestUrlBuilder.getUrl() );
 	}
 	*/
 	
-	private SearchResponse searchPlaces(GenericUrl searchRequestUrl) throws SearcherException {		
+	private SearchResponse searchPlaces(GenericUrl searchRequestUrl) throws PlacesSearcherException {		
 		return searchPlaces(httpRequestFactory, searchRequestUrl);
 	}	
 	
-	private SearchResponse searchPlaces(HttpRequestFactory httpRequestFactory, GenericUrl genericUrl/*, Class<PlacesSearchResponse> parsingClass*/) throws SearcherException {
+	private SearchResponse searchPlaces(HttpRequestFactory httpRequestFactory, GenericUrl genericUrl/*, Class<PlacesSearchResponse> parsingClass*/) throws PlacesSearcherException {
 		try {
 			//Ln.d(genericUrl);
 			return httpRequestFactory.buildGetRequest(genericUrl).execute().parseAs(/*parsingClass*/SearchResponse.class);
 		} catch (GoogleJsonResponseException e) {
-			e.printStackTrace();
-			throw new SearcherException(e.getMessage());
+			throw new PlacesSearcherException(e);
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
-			throw new SearcherException(e.getMessage());
+			throw new PlacesSearcherException(e);
 		} catch (IOException e) {
-			e.printStackTrace();
-			throw new SearcherException(e.getMessage());
+			throw new PlacesSearcherException(e);
 		}
 	}
 }
