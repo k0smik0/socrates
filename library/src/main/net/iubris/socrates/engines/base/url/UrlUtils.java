@@ -3,6 +3,8 @@ package net.iubris.socrates.engines.base.url;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import android.util.Log;
+
 public class UrlUtils {
 
 	public static URI buildURI(String urlString) {
@@ -11,8 +13,8 @@ public class UrlUtils {
 				return new URI(urlString);
 			}
 		} catch (URISyntaxException e) {
-			System.out.println( "UrlUtils, catched exception"+e.getClass() );
-			e.printStackTrace();		 
+			Log.d("UrlUtils:14", "catched exception"+e.getClass() );
+//			e.printStackTrace();		 
 		}
 		return null;
 	}

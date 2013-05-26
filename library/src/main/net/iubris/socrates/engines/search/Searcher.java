@@ -74,7 +74,7 @@ public class Searcher {
 		this.httpRequestFactory = httpRequestFactory;
 		this.configOptional = configOptional;
 		initFromConfig();
-		System.out.println("Searcher: "+hashCode());
+//System.out.println("net.iubris.socrates.engines.search.Searcher: "+hashCode() );
 	}
 	
 	/*
@@ -162,11 +162,10 @@ public class Searcher {
 		return searchRequestUrlBuilder.getUrl().containsKey(parameter.name());
 	}
 	
-	
 		
-	public SearchResponse search(Location location) throws PlacesSearcherException {
+	public SearchResponse search(Location location) throws /*LocationNullException,*/ PlacesSearcherException {
 		searchRequestUrlBuilder.setLocation(location);
-System.out.println( "Searcher: 165 - searchRequestUrlBuilder.getUrl(): "+searchRequestUrlBuilder.getUrl() );
+//System.out.println( "Searcher: 165 - searchRequestUrlBuilder.getUrl(): "+searchRequestUrlBuilder.getUrl() );
 		return searchPlaces( searchRequestUrlBuilder.getUrl() );
 	}
 	public SearchResponse search(String nextPageToken) throws PlacesSearcherException {

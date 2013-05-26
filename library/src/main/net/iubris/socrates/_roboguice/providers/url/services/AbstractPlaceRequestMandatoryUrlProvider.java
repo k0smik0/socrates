@@ -16,13 +16,13 @@ public abstract class AbstractPlaceRequestMandatoryUrlProvider implements Provid
 	private GenericUrl urlWithoutParameters;
 	@Inject 
 	private ConfigMandatory config;
+
 	private final ServiceType serviceType;
-//	private final ServiceType serviceType;
+	
 	private GenericUrl mandatoryUrl;
 	
-	public AbstractPlaceRequestMandatoryUrlProvider(
-			/*GenericUrl urlWithoutParameters, PlaceConfig placeConfig,*/ ServiceType serviceType) {
-				this.serviceType = serviceType;
+	public AbstractPlaceRequestMandatoryUrlProvider(ServiceType serviceType) {
+		this.serviceType = serviceType;
 		/*
 		this.urlWithoutParameters = urlWithoutParameters;
 		this.placeConfig = placeConfig;

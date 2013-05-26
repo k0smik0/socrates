@@ -51,13 +51,13 @@ public class EventsDetailsRetriever {
 		try {
 			return httpRequestFactory.buildGetRequest(eventDetailsRequestUrlBuilder.getUrl()).execute().parseAs(EventDetailsResponse.class);
 		} catch (GoogleJsonResponseException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new EventDetailsRetrieverException(e.getMessage());
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new EventDetailsRetrieverException(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new EventDetailsRetrieverException(e.getMessage());
 		}/*catch (NullPointerException e) {
 			e.printStackTrace();

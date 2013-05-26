@@ -67,16 +67,16 @@ public class DetailsRetriever {
 		try {
 			return httpRequestFactory.buildGetRequest(detailsRequestUrlBuilder.getUrl()).execute().parseAs(DetailsResponse.class);
 		} catch (GoogleJsonResponseException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new DetailsRetrieverException(e.getMessage());
 		} catch (JsonProcessingException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new DetailsRetrieverException(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new DetailsRetrieverException(e.getMessage());
 		}catch (NullPointerException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			throw new DetailsRetrieverException( e.getMessage() );
 		}
 	}

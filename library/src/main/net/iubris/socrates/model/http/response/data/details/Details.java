@@ -84,9 +84,6 @@ public class Details {
 	private String websiteString;		
 	
 	private URI website;
-	
-	
-	
 
 	public List<AddressComponent> getAddressComponents() {
 		return addressComponents;

@@ -42,12 +42,17 @@ public class SocratesSampleActivity extends RoboActivity {
 			location.setLongitude(11.342728);
 			new RoboAsyncTask<String>(SocratesSampleActivity.this) {
 				@Override
-				public String call() throws PlacesSearcherException {
+				public String call() throws /*LocationNullException,*/PlacesSearcherException {
 					SearchResponse searchResponse = placeSearcher.search(location);
 					return parseResults( searchResponse.getResults() );
 				}
-				protected void onSuccess(String t) throws Exception {
+				@Override
+				protected void onSuccess(String t) throws RuntimeException {
 					Toast.makeText(SocratesSampleActivity.this, t, Toast.LENGTH_LONG).show();
+				};
+				@Override
+				protected void onException(Exception e) throws RuntimeException {
+					e.printStackTrace();
 				};
 			}.execute();
 		}

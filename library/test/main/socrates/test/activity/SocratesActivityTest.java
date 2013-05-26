@@ -82,7 +82,9 @@ public class SocratesActivityTest {
 			System.out.println( "status reason:" +searchResponse.getStatus().getReason());			
 		} catch (PlacesSearcherException e) {
 			e.printStackTrace();
-		}
+		}/* catch (LocationNullException e) {
+			e.printStackTrace();
+		}*/
 	}
 	
 	
@@ -224,7 +226,9 @@ public class SocratesActivityTest {
 			e.printStackTrace();
 		} catch (DetailsRetrieverException e) {				
 			e.printStackTrace();
-		} 
+		}/* catch (LocationNullException e) {
+			e.printStackTrace();
+		}*/
 		System.out.println("-- findLocationsDetails --\n");
 	}
 	/*

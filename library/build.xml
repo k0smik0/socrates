@@ -66,6 +66,7 @@
 		<javac destdir="${build.dir}/classes/main" includeantruntime="false">
 			<src path="${src.dir}/main" />
 			<include name="**/*.java"/>
+			<exclude name="**/LocationNullException.java"/>
 			<classpath refid="classpath-main"/>
 		</javac>
 	</target>

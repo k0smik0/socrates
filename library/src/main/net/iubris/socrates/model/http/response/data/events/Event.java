@@ -22,6 +22,8 @@ package net.iubris.socrates.model.http.response.data.events;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import android.util.Log;
+
 import com.google.api.client.util.Key;
 
 public class Event {
@@ -63,8 +65,8 @@ public class Event {
 				return new URI(urlString);
 			}
 		} catch (URISyntaxException e) {
-			System.out.println( "Event:66 - catched exception: "+e.getClass() );
-			e.printStackTrace();		 
+			Log.d("Event:66", "catched exception: "+e.getClass() );
+//			e.printStackTrace();		 
 		}
 		return null;
 	}

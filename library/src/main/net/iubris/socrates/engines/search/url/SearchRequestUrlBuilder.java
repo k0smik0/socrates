@@ -83,8 +83,8 @@ public class SearchRequestUrlBuilder extends AbstractRequestUrlBuilder<SearchReq
 	}
 	*/
 	
-	public SearchRequestUrlBuilder setLocation(Location location) {
-		//if (location != null) {
+	public SearchRequestUrlBuilder setLocation(Location location) /*throws LocationNullException */{
+//		if (location == null) throw new LocationNullException("location is null!");
 			//setValue(buildedUrl,  PlaceUrlConfigParameter.location, location.getLatitude()+","+location.getLongitude());		
 			setParameterValue(SearchMandatoryParameter.location, location.getLatitude()+","+location.getLongitude());		
 		//}
