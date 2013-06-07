@@ -34,7 +34,7 @@ public class Location {
 	public double getLongitude() {
 		return longitude;
 	}	
-	public GeoPoint toGeoPoint(){		
+	public GeoPoint toGeoPoint() {
 		return new GeoPoint((int)(latitude*1E6), (int)(longitude*1E6));
 	}
 	/*
