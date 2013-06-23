@@ -20,6 +20,7 @@
 package net.iubris.socrates.engines.search;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +44,7 @@ import net.iubris.socrates.model.http.response.search.SearchResponse;
 import org.codehaus.jackson.JsonProcessingException;
 
 import android.location.Location;
+import android.util.Log;
 
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.GenericUrl;
@@ -164,6 +166,7 @@ public class Searcher {
 	
 		
 	public SearchResponse search(Location location) throws /*LocationNullException,*/ PlacesSearcherException {
+		formatLocationDecimalPlaces(location);
 		searchRequestUrlBuilder.setLocation(location);
 //System.out.println( "Searcher: 165 - searchRequestUrlBuilder.getUrl(): "+searchRequestUrlBuilder.getUrl() );
 		return searchPlaces( searchRequestUrlBuilder.getUrl() );
@@ -171,6 +174,22 @@ public class Searcher {
 	public SearchResponse search(String nextPageToken) throws PlacesSearcherException {
 		nextPageTokenRequestUrl.set(SearchOptionalParameter.pagetoken.name(), nextPageToken);		
 		return searchPlaces( nextPageTokenRequestUrl );
+	}
+	
+	protected void formatLocationDecimalPlaces(Location location) {
+//		DecimalFormat dec = new DecimalFormat("##.######");
+		DecimalFormat dec = new DecimalFormat("00.000000");
+//		NumberFormat dec = NumberFormat.getCurrencyInstance();
+//		dec.setMaximumFractionDigits(6);
+		String latString = dec.format(location.getLatitude()).replace(",", ".");
+		Log.d("Searcher:184",latString);
+		float fLat = Float.parseFloat(latString);
+		location.setLatitude( fLat );
+		
+		String lngString = dec.format(location.getLongitude()).replace(",", ".");
+		float fLng = Float.parseFloat(lngString);
+		location.setLongitude( fLng );
+//		Dec
 	}
 	
 		

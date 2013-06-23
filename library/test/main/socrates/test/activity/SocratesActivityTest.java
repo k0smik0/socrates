@@ -70,15 +70,16 @@ public class SocratesActivityTest {
 	public SocratesActivityTest() {
 		location = new Location("GPS");
 		location.setLatitude(44.4937382342);
-		location.setLongitude(11.376947768);
+		location.setLongitude(11.3769477681);
 	}
 		
 	@Before
 	public void searchLocations() {
 		try {
 //			placeSearcher.initFromConfig(configOptional);
-			System.out.println( "RequestUrl: "+placeSearcher.getRequestUrl() );
+//			System.out.println( "RequestUrl: "+placeSearcher.getRequestUrl() );
 			searchResponse = placeSearcher.search(location);
+			System.out.println( "RequestUrl: "+placeSearcher.getRequestUrl() );
 			System.out.println( "status reason:" +searchResponse.getStatus().getReason());			
 		} catch (PlacesSearcherException e) {
 			e.printStackTrace();
@@ -148,7 +149,9 @@ public class SocratesActivityTest {
 		if (openingHours == null) return;
 		System.out.println("Opening:");
 		for (Period p: openingHours.getPeriods()) {
-			System.out.println( "\t"+p.getOpen().getDay() + ": " +p.getOpen().getTime() + " - "+p.getClose().getTime() );			
+			try {
+			System.out.println( "\t"+p.getOpen().getDay() + ": " +p.getOpen().getTime() + " - "+p.getClose().getTime() );
+			} catch (NullPointerException e) {}
 		}		
 	}
 
