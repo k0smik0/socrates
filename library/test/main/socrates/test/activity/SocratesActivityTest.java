@@ -130,7 +130,7 @@ public class SocratesActivityTest {
 			
 			String reference = p.getReference();
 			//System.out.println(reference);
-			DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieveDetails(reference);
+			DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieve(reference);
 			
 			Details result = placeDetailsResponse.getResult();
 			
@@ -216,7 +216,7 @@ public class SocratesActivityTest {
 			SearchResponse  placeList = placeSearcher.search(location);
 			for (Place place: placeList.getResults()) {
 				String reference = place.getReference();
-				DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieveDetails(reference);
+				DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieve(reference);
 				System.out.print("InternationalPhoneNumber: "+placeDetailsResponse.getResult().getInternationalPhoneNumber()+" ");
 				System.out.println("details: "+placeDetailsResponse.getResult().getUri());
 				

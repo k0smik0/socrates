@@ -36,61 +36,61 @@ public enum Status implements StatusHandler {
 
 	@Value OK ("no errors occurred; the place was successfully detected and at least one result was returned") {
 		@Override
-		public List<Place> act(SearchResponse placesSearchResponse) {
+		public List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse) {
 			return placesSearchResponse.getResults();
 		}
 		@Override
-		public Details act(DetailsResponse placeDetailsResponse) {
+		public Details handleStatusAndGetData(DetailsResponse placeDetailsResponse) {
 			return placeDetailsResponse.getResult();
 		}
 	},
 	@Value ZERO_RESULTS ("the search was successful but returned no results. This may occur if the search was passed a latlng in a remote location.") {
 		@Override
-		public List<Place> act(SearchResponse placesSearchResponse) throws ZeroResultException {
+		public List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse) throws ZeroResultException {
 			throw new ZeroResultException(getReason());
 		}
 		@Override
-		public Details act(DetailsResponse placeDetailsResponse) throws ZeroResultException {
+		public Details handleStatusAndGetData(DetailsResponse placeDetailsResponse) throws ZeroResultException {
 			throw new ZeroResultException(getReason());
 		}
 	},
 	@Value OVER_QUERY_LIMIT ("you are over your quota.") {
 		@Override
-		public List<Place> act(SearchResponse placesSearchResponse) throws OverQuotaException {
+		public List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse) throws OverQuotaException {
 			throw new OverQuotaException(getReason());
 		}
 		@Override
-		public Details act(DetailsResponse placeDetailsResponse) throws OverQuotaException {
+		public Details handleStatusAndGetData(DetailsResponse placeDetailsResponse) throws OverQuotaException {
 			throw new OverQuotaException(getReason());
 		}
 	},
 	@Value REQUEST_DENIED ("your request was denied, generally because of lack of a sensor parameter.") {
 		@Override
-		public List<Place> act(SearchResponse placesSearchResponse) throws RequestDeniedException {
+		public List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse) throws RequestDeniedException {
 			throw new RequestDeniedException(getReason());
 		}
 		@Override
-		public Details act(DetailsResponse placeDetailsResponse) throws RequestDeniedException {
+		public Details handleStatusAndGetData(DetailsResponse placeDetailsResponse) throws RequestDeniedException {
 			throw new RequestDeniedException(getReason());
 		}
 	},
 	@Value INVALID_REQUEST ("required query parameter (generally location or radius) is missing.") {
 		@Override
-		public List<Place> act(SearchResponse placesSearchResponse) throws InvalidRequestException {
+		public List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse) throws InvalidRequestException {
 			throw new InvalidRequestException(getReason());
 		}
 		@Override
-		public Details act(DetailsResponse placeDetailsResponse) throws InvalidRequestException {
+		public Details handleStatusAndGetData(DetailsResponse placeDetailsResponse) throws InvalidRequestException {
 			throw new InvalidRequestException(getReason());
 		}
 	},
 	@Value NOT_FOUND("an event could not be found with the specified event_id"){
 		@Override
-		public List<Place> act(SearchResponse placesSearchResponse) throws InvalidRequestException {
+		public List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse) throws InvalidRequestException {
 			throw new InvalidRequestException(getReason());
 		}
 		@Override
-		public Details act(DetailsResponse placeDetailsResponse) throws InvalidRequestException {
+		public Details handleStatusAndGetData(DetailsResponse placeDetailsResponse) throws InvalidRequestException {
 			throw new InvalidRequestException(getReason());
 		}	
 	};

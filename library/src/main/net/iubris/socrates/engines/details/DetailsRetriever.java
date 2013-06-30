@@ -58,7 +58,7 @@ public class DetailsRetriever {
 		return this;
 	}
 	
-	public DetailsResponse retrieveDetails(String reference) throws DetailsRetrieverException {	
+	public DetailsResponse retrieve(String reference) throws DetailsRetrieverException {	
 		detailsRequestUrlBuilder.setReference(reference);
 		return retrieve(detailsRequestUrlBuilder.getUrl());
 	}
@@ -68,16 +68,16 @@ public class DetailsRetriever {
 			return httpRequestFactory.buildGetRequest(detailsRequestUrlBuilder.getUrl()).execute().parseAs(DetailsResponse.class);
 		} catch (GoogleJsonResponseException e) {
 //			e.printStackTrace();
-			throw new DetailsRetrieverException(e.getMessage());
+			throw new DetailsRetrieverException(e);
 		} catch (JsonProcessingException e) {
 //			e.printStackTrace();
-			throw new DetailsRetrieverException(e.getMessage());
+			throw new DetailsRetrieverException(e);
 		} catch (IOException e) {
 //			e.printStackTrace();
-			throw new DetailsRetrieverException(e.getMessage());
+			throw new DetailsRetrieverException(e);
 		}catch (NullPointerException e) {
 //			e.printStackTrace();
-			throw new DetailsRetrieverException( e.getMessage() );
+			throw new DetailsRetrieverException(e);
 		}
 	}
 	

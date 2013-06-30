@@ -26,7 +26,7 @@ import net.iubris.socrates.model.http.request.url.language.Language;
 import net.iubris.socrates.model.http.request.url.parameters.optional.search.values.RankBy;
 import net.iubris.socrates.model.http.response.data.search.PlaceType;
 
-public interface ConfigOptional {	
+public interface SearchOptions {	
 	public RankBy getRankBy();
 	public String getKeyword();
 	public Language getLanguage();

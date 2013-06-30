@@ -26,13 +26,12 @@ import java.util.Set;
 
 import javax.inject.Inject;
 
-import net.iubris.socrates.config.ConfigOptional;
+import net.iubris.socrates.config.SearchOptions;
 import net.iubris.socrates.engines.base.annotations.PlacesHttpRequestFactory;
 import net.iubris.socrates.engines.search.exception.MalformedSearchUrlConfigException;
 import net.iubris.socrates.engines.search.exception.NullConfigException;
 import net.iubris.socrates.engines.search.exception.PlacesSearcherException;
 import net.iubris.socrates.engines.search.url.SearchRequestUrlBuilder;
-import net.iubris.socrates.engines.search.url.annotation.Config;
 import net.iubris.socrates.engines.search.url.annotation.SearchRequestMandatoryUrl;
 import net.iubris.socrates.model.http.request.url.ParameterKey;
 import net.iubris.socrates.model.http.request.url.language.Language;
@@ -44,8 +43,6 @@ import net.iubris.socrates.model.http.response.search.SearchResponse;
 import org.codehaus.jackson.JsonProcessingException;
 
 import android.location.Location;
-import android.util.Log;
-
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequestFactory;
@@ -58,7 +55,7 @@ public class Searcher {
 	private final GenericUrl nextPageTokenRequestUrl;
 	//private final Integer radius;	
 
-	private ConfigOptional configOptional;
+	private final SearchOptions configOptionalDefault;
 	
 		
 	@Inject
@@ -67,15 +64,15 @@ public class Searcher {
 			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory//,
 			//@Radius Integer radius
 			
-			,@Config ConfigOptional configOptional) {
+			,/*@Config*/ SearchOptions configOptional) {
 		this.searchRequestUrlBuilder = searchRequestUrlBuilder;
 		this.nextPageTokenRequestUrl = nextPageTokenRequestUrl;
 		//this.radius = radius;
 		this.nextPageTokenRequestUrl.put(SearchOptionalParameter.pagetoken.name(), "");
 		//urlForNextPage = searchRequestUrlBuilder.getUrl().clone();
 		this.httpRequestFactory = httpRequestFactory;
-		this.configOptional = configOptional;
-		initFromConfig();
+		this.configOptionalDefault = configOptional;
+		initFromConfig(configOptionalDefault);
 //System.out.println("net.iubris.socrates.engines.search.Searcher: "+hashCode() );
 	}
 	
@@ -89,32 +86,36 @@ public class Searcher {
 		searchRequestUrlBuilder.resetUrl();
 		return this;
 	}
-	public Searcher initConfig(ConfigOptional configOptional) throws NullConfigException, MalformedSearchUrlConfigException {
+	public Searcher setSearchOptions(SearchOptions configOptional) throws NullConfigException, MalformedSearchUrlConfigException {
 		if (configOptional==null ) throw new NullConfigException("config must be not null");
-		this.configOptional = configOptional;
-		return initFromConfig();
-	}	
-	private Searcher initFromConfig() /*throws NullConfigException, MalformedSearchUrlConfigException */{
+//		this.configOptionalDefault = configOptional;
+		return initFromConfig(configOptional);
+	}
+	public Searcher resetSearchOptions() {
+		return initFromConfig(configOptionalDefault);
+	}
+	
+	private Searcher initFromConfig(SearchOptions configOptionalDefault) /*throws NullConfigException, MalformedSearchUrlConfigException */{
 //		if (configOptional==null ) throw new NullConfigException("config not setted");
 		
-		Integer radius = configOptional.getRadius();
-		if (radius !=null && radius >0) setRadius(configOptional.getRadius());	
-		
-		Language language = configOptional.getLanguage();
-		if (language != null) setLanguage( language );
-		
-		String keyword = configOptional.getKeyword();
-		if (keyword != null && keyword != "") setKeyword(keyword);
-		
-		Set<PlaceType> types = configOptional.getTypes();
-		if (types != null && !types.isEmpty()) setTypes(types);
-		
-		List<String> names = configOptional.getNames();
-		if (names != null && !names.isEmpty()) setNames(names);		
-		
-		RankBy rankBy = configOptional.getRankBy();
+		RankBy rankBy = configOptionalDefault.getRankBy();
 		if (rankBy != null) setRankBy(rankBy);
 		
+		Integer radius = configOptionalDefault.getRadius();
+		if (radius !=null && radius >0) setRadius(configOptionalDefault.getRadius());	
+		
+		Language language = configOptionalDefault.getLanguage();
+		if (language != null) setLanguage( language );
+		
+		String keyword = configOptionalDefault.getKeyword();
+		if (keyword != null && keyword != "") setKeyword(keyword);
+		
+		Set<PlaceType> types = configOptionalDefault.getTypes();
+		if (types != null && !types.isEmpty()) setTypes(types);
+		
+		List<String> names = configOptionalDefault.getNames();
+		if (names != null && !names.isEmpty()) setNames(names);		
+				
 		return this;
 	}
 	
@@ -182,7 +183,7 @@ public class Searcher {
 //		NumberFormat dec = NumberFormat.getCurrencyInstance();
 //		dec.setMaximumFractionDigits(6);
 		String latString = dec.format(location.getLatitude()).replace(",", ".");
-		Log.d("Searcher:184",latString);
+//		Log.d("Searcher:184",latString);
 		float fLat = Float.parseFloat(latString);
 		location.setLatitude( fLat );
 		

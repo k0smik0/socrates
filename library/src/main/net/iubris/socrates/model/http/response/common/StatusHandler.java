@@ -32,13 +32,13 @@ import net.iubris.socrates.model.http.response.search.SearchResponse;
 
 public interface StatusHandler {
 
-	List<Place> act(SearchResponse placesSearchResponse)
+	List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse)
 		throws OverQuotaException,
 			ZeroResultException,
 			RequestDeniedException,
 			InvalidRequestException;
 
-	Details act(DetailsResponse placeDetailsResponse) 
+	Details handleStatusAndGetData(DetailsResponse placeDetailsResponse) 
 		throws ZeroResultException, 
 			OverQuotaException, 
 			RequestDeniedException, 

@@ -1,16 +1,16 @@
-package net.iubris.socrates_sample.config;
+package socrates.test._roboguice.module;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import net.iubris.socrates.config.ConfigOptional;
+import net.iubris.socrates.config.SearchOptions;
 import net.iubris.socrates.model.http.request.url.language.Language;
 import net.iubris.socrates.model.http.request.url.parameters.optional.search.values.RankBy;
 import net.iubris.socrates.model.http.response.data.search.PlaceType;
 
-public final class ConfigOptionalImpl implements ConfigOptional {
-	public ConfigOptionalImpl() {
+public final class SearchOptionsImpl implements SearchOptions {
+	public SearchOptionsImpl() {
 		System.out.println("ConfigOptionalImpl: "+this.hashCode());
 	}
 	

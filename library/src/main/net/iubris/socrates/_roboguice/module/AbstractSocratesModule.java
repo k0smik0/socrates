@@ -58,11 +58,11 @@ public abstract class AbstractSocratesModule extends AbstractModule {
 		bind(HttpParser.class).annotatedWith(PlacesHttpParser.class).toProvider(PlacesHttpParserProvider.class);
 
 		bindConfigMandatory();
-		bindConfigOptional();
+		bindSearchOptions();
 	}
 	
 	protected abstract void bindConfigMandatory();
-	protected abstract void bindConfigOptional();
+	protected abstract void bindSearchOptions();
 
 	@Provides @PlacesHttpTransport
 	public HttpTransport providesHttpTransport() {

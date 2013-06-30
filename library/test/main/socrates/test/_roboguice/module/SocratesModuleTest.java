@@ -22,9 +22,7 @@ package socrates.test._roboguice.module;
 
 import net.iubris.socrates._roboguice.module.AbstractSocratesModule;
 import net.iubris.socrates.config.ConfigMandatory;
-import net.iubris.socrates.config.ConfigOptional;
-import net.iubris.socrates.engines.search.url.annotation.Config;
-
+import net.iubris.socrates.config.SearchOptions;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
@@ -42,9 +40,9 @@ public class SocratesModuleTest extends AbstractSocratesModule {
 	}
 
 	@Override
-	protected void bindConfigOptional() {
-		bind(ConfigOptional.class).annotatedWith(Config.class).to(ConfigOptionalImpl.class);
-		bind(ConfigOptionalImpl.class).asEagerSingleton();		
+	protected void bindSearchOptions() {
+		bind(SearchOptions.class)/*.annotatedWith(Config.class)*/.to(SearchOptionsImpl.class);
+		bind(SearchOptionsImpl.class).asEagerSingleton();		
 	}
 
 }
