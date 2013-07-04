@@ -1,17 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/RelativeLayout1"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/LinearLayout1"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:textSize="36dp"
-        android:text="Search!" />
+	<Button
+		android:id="@+id/button_search"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:layout_marginTop="10dp"
+		android:layout_marginBottom="10dp"
+		android:layout_weight="0.1"
+		android:text="Search!"
+		android:textSize="36sp"
+		android:onClick="onClickSearch" />
 
-</RelativeLayout>
+	<TextView
+		android:id="@+id/text_field_result"
+		android:layout_width="fill_parent"
+		android:layout_height="match_parent"
+		android:layout_marginBottom="10dp"
+		android:layout_weight="1"
+		android:gravity="left"
+		android:paddingLeft="10dp"
+		android:paddingRight="10dp"
+		android:scrollHorizontally="false"
+		android:scrollbars="vertical"
+		android:singleLine="false"
+		android:textIsSelectable="false" />
+
+</LinearLayout>
