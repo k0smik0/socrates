@@ -57,7 +57,7 @@ public final class SearchOptionsImpl implements SearchOptions {
 	
 	@Override
 	public RankBy getRankBy() {
-		//return RankBy.distance;
+//		return RankBy.distance;
 		return RankBy.prominence;
 	}
 	@Override

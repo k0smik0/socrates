@@ -24,6 +24,7 @@ import java.io.IOException;
 
 import javax.inject.Inject;
 
+import net.iubris.socrates.config.SearchOptions;
 import net.iubris.socrates.engines.base.annotations.PlacesHttpRequestFactory;
 import net.iubris.socrates.engines.details.exception.DetailsRetrieverException;
 import net.iubris.socrates.engines.details.url.DetailsRequestUrlBuilder;
@@ -40,16 +41,25 @@ public class DetailsRetriever {
 	
 	private final DetailsRequestUrlBuilder detailsRequestUrlBuilder;
 	private final HttpRequestFactory httpRequestFactory;
+	private Language language;
 	
 	@Inject
 	public DetailsRetriever(DetailsRequestUrlBuilder detailstRequestUrlBuilder,
-			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory) {
+			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory,
+			SearchOptions searchOptions) {
 		this.detailsRequestUrlBuilder = detailstRequestUrlBuilder;
 		this.httpRequestFactory = httpRequestFactory;
+		Language language = searchOptions.getLanguage();
+		if (language!=null)
+			this.language = language;
 	}
 	
 	public DetailsRetriever setLanguage(Language language) {		
 		detailsRequestUrlBuilder.setLanguage(language);
+		return this;
+	}
+	public DetailsRetriever resetSearchOptions() {
+		detailsRequestUrlBuilder.setLanguage(this.language);
 		return this;
 	}
 	

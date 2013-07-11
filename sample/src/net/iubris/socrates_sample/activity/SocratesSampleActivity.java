@@ -49,10 +49,17 @@ public class SocratesSampleActivity extends RoboActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+//Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/socrates__startup");
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.main);
 		
 		textView.setMovementMethod(new ScrollingMovementMethod());
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+//		Debug.stopMethodTracing();
 	}
 	
 	
@@ -61,7 +68,10 @@ public class SocratesSampleActivity extends RoboActivity {
 		location.setLatitude(44.494692);
 		location.setLongitude(11.342728);
 		new RoboAsyncTask<String>(SocratesSampleActivity.this) {
+			private long start;
 			protected void onPreExecute() throws Exception {
+//Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/socrates__search_task");
+				start = System.currentTimeMillis();
 				Toast.makeText(SocratesSampleActivity.this, "...searching...", Toast.LENGTH_SHORT).show();
 			};
 			@Override
@@ -72,8 +82,12 @@ public class SocratesSampleActivity extends RoboActivity {
 			@Override
 			protected void onSuccess(String t) throws RuntimeException {
 //				Toast.makeText(SocratesSampleActivity.this, t, Toast.LENGTH_LONG).show();
+				long end = System.currentTimeMillis();
+				long delta = (end-start);
 				textView.setText( textView.getText()
-						+t+"\n\n");
+						+t+"\n\n"
+						+"\nin: "+delta+" ms\n\n\n");
+//Debug.stopMethodTracing();
 			};
 			@Override
 			protected void onException(Exception e) throws RuntimeException {

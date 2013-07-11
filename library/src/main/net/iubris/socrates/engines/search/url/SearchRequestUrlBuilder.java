@@ -70,7 +70,11 @@ public class SearchRequestUrlBuilder extends AbstractRequestUrlBuilder<SearchReq
 	}
 	public SearchRequestUrlBuilder removeRadius() {
 		//setValue(buildedUrl, PlaceUrlConfigParameter.radius, radius);
-		buildedUrl.set(SearchOptionalParameter.radius.name(),"");
+		
+		// old working ?
+//		buildedUrl.set(SearchOptionalParameter.radius.name(),"");
+		buildedUrl.remove(SearchOptionalParameter.radius);
+
 		//setParameterValue(SearchOptionalParameter.radius);
 		//System.out.println("SearchRequestUrlBuilder: "+buildedUrl);
 		return this;

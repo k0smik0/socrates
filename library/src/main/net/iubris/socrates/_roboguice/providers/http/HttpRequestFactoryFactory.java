@@ -29,21 +29,21 @@ import com.google.api.client.http.HttpTransport;
 public class HttpRequestFactoryFactory {
 	
 	static public HttpRequestFactory createRequestFactory(final HttpTransport transport, 
-		final String applicationName, 
+		final String applicationName,
 		final HttpParser httpParser) {
 		return transport.createRequestFactory(new HttpRequestInitializer() {
 			@Override
 			public void initialize(HttpRequest request) {
-			    GoogleHeaders headers = new GoogleHeaders();
-			    headers.setApplicationName(applicationName);
-			    request.setHeaders(headers);		    		    
-			    /* old
-			    JsonHttpParser parser = new JsonHttpParser();
-			    parser.jsonFactory = new JacksonFactory();  
-			    */
-			    //JsonHttpParser parser = new JsonHttpParser(new JacksonFactory());
-			    request.addParser(httpParser);
-		   }
+				GoogleHeaders headers = new GoogleHeaders();
+				headers.setApplicationName(applicationName);
+				request.setHeaders(headers);
+				/* old
+				JsonHttpParser parser = new JsonHttpParser();
+				parser.jsonFactory = new JacksonFactory();  
+				*/
+//				JsonHttpParser parser = new JsonHttpParser(new JacksonFactory());
+				request.addParser(httpParser);
+			}
 		} );
 	}		
 }

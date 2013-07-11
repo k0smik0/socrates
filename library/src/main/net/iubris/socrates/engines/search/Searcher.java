@@ -19,8 +19,8 @@
  ******************************************************************************/
 package net.iubris.socrates.engines.search;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
@@ -64,7 +64,7 @@ public class Searcher {
 			@PlacesHttpRequestFactory HttpRequestFactory httpRequestFactory//,
 			//@Radius Integer radius
 			
-			,/*@Config*/ SearchOptions configOptional) {
+			,/*@Config*/ SearchOptions configOptional) throws MalformedSearchUrlConfigException {
 		this.searchRequestUrlBuilder = searchRequestUrlBuilder;
 		this.nextPageTokenRequestUrl = nextPageTokenRequestUrl;
 		//this.radius = radius;
@@ -86,23 +86,17 @@ public class Searcher {
 		searchRequestUrlBuilder.resetUrl();
 		return this;
 	}
-	public Searcher setSearchOptions(SearchOptions configOptional) throws NullConfigException, MalformedSearchUrlConfigException {
-		if (configOptional==null ) throw new NullConfigException("config must be not null");
+	public Searcher setSearchOptions(SearchOptions searchOptions) throws NullConfigException, MalformedSearchUrlConfigException {
+		if (searchOptions==null ) throw new NullConfigException("config must be not null");
 //		this.configOptionalDefault = configOptional;
-		return initFromConfig(configOptional);
+		return initFromConfig(searchOptions);
 	}
-	public Searcher resetSearchOptions() {
+	public Searcher resetSearchOptions() throws MalformedSearchUrlConfigException {
 		return initFromConfig(configOptionalDefault);
 	}
 	
-	private Searcher initFromConfig(SearchOptions configOptionalDefault) /*throws NullConfigException, MalformedSearchUrlConfigException */{
+	private Searcher initFromConfig(SearchOptions configOptionalDefault) throws MalformedSearchUrlConfigException /*throws NullConfigException, MalformedSearchUrlConfigException */{
 //		if (configOptional==null ) throw new NullConfigException("config not setted");
-		
-		RankBy rankBy = configOptionalDefault.getRankBy();
-		if (rankBy != null) setRankBy(rankBy);
-		
-		Integer radius = configOptionalDefault.getRadius();
-		if (radius !=null && radius >0) setRadius(configOptionalDefault.getRadius());	
 		
 		Language language = configOptionalDefault.getLanguage();
 		if (language != null) setLanguage( language );
@@ -114,8 +108,31 @@ public class Searcher {
 		if (types != null && !types.isEmpty()) setTypes(types);
 		
 		List<String> names = configOptionalDefault.getNames();
-		if (names != null && !names.isEmpty()) setNames(names);		
-				
+		if (names != null && !names.isEmpty()) setNames(names);
+		
+//Log.d("115",""+searchRequestUrlBuilder.getUrl());
+//System.out.println("116 "+searchRequestUrlBuilder.getUrl());
+		
+		RankBy rankBy = configOptionalDefault.getRankBy();
+		if (rankBy != null) {
+			if (rankBy.equals(RankBy.prominence)) {
+				// if prominence, add radius
+				Integer radius = configOptionalDefault.getRadius();
+				if (radius !=null && radius >0) { 
+					setRadius(configOptionalDefault.getRadius());
+					return this;
+				}
+				throw new MalformedSearchUrlConfigException("with prominence, you must provide radius parameter");
+			}			
+//			try {
+			setRankBy(rankBy); // if not prominence, it's distance
+//			} catch (MalformedSearchUrlConfigException e) {
+//				e.printStackTrace();
+//			}			
+		}
+		
+//Log.d(getClass().getSimpleName()+":127",""+searchRequestUrlBuilder.getUrl());
+		
 		return this;
 	}
 	
@@ -145,8 +162,8 @@ public class Searcher {
 		searchRequestUrlBuilder.setKeyword(keyword);
 		return this;
 	}
-	public Searcher setRankBy(RankBy rankBy) /*throws MalformedSearchUrlConfigException */{		
-		if (rankBy.equals(RankBy.distance)) {
+	public Searcher setRankBy(RankBy rankBy) throws MalformedSearchUrlConfigException {		
+		/*if (rankBy.equals(RankBy.distance)) {
 			//if ( isParameterInUrl(SearchOptionalParameter.radius)) {
 				searchRequestUrlBuilder.removeRadius();
 				searchRequestUrlBuilder.setRankBy(rankBy);
@@ -155,13 +172,31 @@ public class Searcher {
 			if ( isParameterInUrl(SearchOptionalParameter.types) || isParameterInUrl(SearchOptionalParameter.names) || isParameterInUrl(SearchOptionalParameter.keyword) ) {
 				searchRequestUrlBuilder.setRankBy(rankBy);
 			}
-			/*} else {
-				throw new MalformedSearchUrlConfigException("you must provide one of 'names', 'types' or 'keyword' parameters");
-			}*/
+//			} else {
+//				throw new MalformedSearchUrlConfigException("you must provide one of 'names', 'types' or 'keyword' parameters");
+//			}
+		}*/
+//System.out.println("181 "+searchRequestUrlBuilder.getUrl());
+		if (rankBy.equals(RankBy.distance)) {
+//Log.d(getClass().getSimpleName()+":173","we want use distance in url");
+			if ( isParameterInUrl(SearchOptionalParameter.types) || isParameterInUrl(SearchOptionalParameter.names) || isParameterInUrl(SearchOptionalParameter.keyword) ) {
+				if (isParameterInUrl(SearchOptionalParameter.radius)) {
+//Log.d(getClass().getSimpleName()+":178","found radius, removing");
+					searchRequestUrlBuilder.removeRadius();
+//Log.d(getClass().getSimpleName()+":178",""+isParameterInUrl(SearchOptionalParameter.radius));
+				}
+				searchRequestUrlBuilder.setRankBy(rankBy);
+				return this;
+			}
+			throw new MalformedSearchUrlConfigException("you must provide one of 'names', 'types' or 'keyword' parameters");
 		}
 		return this;
 	}
 	private boolean isParameterInUrl(ParameterKey parameter){
+		/*for ( String k : searchRequestUrlBuilder.getUrl().keySet()) {
+			System.out.println("198: "+k);
+		}*/
+//System.out.println("200: "+parameter.name()+" "+searchRequestUrlBuilder.getUrl().containsKey(parameter.name()));
 		return searchRequestUrlBuilder.getUrl().containsKey(parameter.name());
 	}
 	
@@ -169,7 +204,7 @@ public class Searcher {
 	public SearchResponse search(Location location) throws /*LocationNullException,*/ PlacesSearcherException {
 		formatLocationDecimalPlaces(location);
 		searchRequestUrlBuilder.setLocation(location);
-//System.out.println( "Searcher: 165 - searchRequestUrlBuilder.getUrl(): "+searchRequestUrlBuilder.getUrl() );
+//Log.d("Searcher:165", "searchRequestUrlBuilder.getUrl(): "+searchRequestUrlBuilder.getUrl() );
 		return searchPlaces( searchRequestUrlBuilder.getUrl() );
 	}
 	public SearchResponse search(String nextPageToken) throws PlacesSearcherException {
