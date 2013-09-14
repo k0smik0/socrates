@@ -280,7 +280,7 @@ System.out.println("rexored: "+rexored);
 	/*
 	@Test
 	public void crypt()  {		
-		//String key="AIzaSyAfOlNmRr5G-4BPDd1faYsn9kvkV5ebBRk";
+      //String key="YOUR PLACE API KEY";
 		//final static String DEFAULT_ENCODING = Charset.defaultCharset().toString().equals("UTF-8") ? Charset.defaultCharset().toString() : "UTF-8";
 		String txt = "some text to be XOR-ed" ;
 		//System.out.println(txt.length());

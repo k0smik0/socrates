@@ -95,6 +95,10 @@ from [roboguice](http://repo1.maven.org/maven2/org/roboguice/roboguice/2.0):
 - [javax.inject.jar](http://mavenhub.com/mvn/central/javax.inject/javax.inject/1) 
 - [sisu-guice-3.0.3-no_aop.jar](http://mavenhub.com/mvn/central/org.sonatype.sisu/sisu-guice/3.0.0)
 
+  
+  
+and don't forget to change place api key with your own!
+
 
 <br/><br/><br/><br/><br/>
 heavily ispired by:

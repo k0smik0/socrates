@@ -37,8 +37,7 @@ public final class SearchOptionsImpl implements SearchOptions {
 	@Override
 	public Set<PlaceType> getTypes() {
 		HashSet<PlaceType> hashSet = new HashSet<PlaceType>();
-		hashSet.add(PlaceType.bar);
-		hashSet.add(PlaceType.cafe);
+		hashSet.add(PlaceType.church);
 		return hashSet;
 	}
 

@@ -40,7 +40,7 @@ public final class ConfigMandatoryImpl implements ConfigMandatory{
 	}
 	@Override
 	public String getKey() {				
-		return "AIzaSyAfOlNmRr5G-4BPDd1faYsn9kvkV5ebBRk";
+		return "YOUR API KEY";
 	}
 
 	@Override
