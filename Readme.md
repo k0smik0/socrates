@@ -1,14 +1,18 @@
 #Socrates, a sage google places client.
 
 Did you search for a component responsible for Google Places query
-and retrieving result and, finally, maps it into java class? 
+and retrieving result and, finally, bind it into java class? 
 There is Socrates.
 
 Why *Socrates*? Because, as homonim philosopher said:
 *"sage goes to the market to see, not to buy".*
 
-And so Socrates component just search (google) places.
+And so Socrates component just search (google) places.  
+
+-> a simple [video demo](http://www.youtube.com/watch?v=qAdaGxsNMzA)  
   
+  
+<br/>
 ###usage:
 <pre>
 Location here = ... // my last best location
@@ -73,7 +77,7 @@ you have to provide radius if rankby is not specified (and it is "prominence" as
 <br/><br/>
 
 Searcher class provides a method "setSearchOptions" requesting SearchOptions, if u want change (temporary) your target search<br/>
-With "resetSearchOptions" method you can return to default config, provided via constructor.
+With "resetSearchOptions" method you can return to default config provided via constructor.
 
 <br/><br/>
 In order to compile correctly you have to put various jar in "libs" directory (then move all them in main project "libs" directory):    
