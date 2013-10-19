@@ -19,13 +19,15 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.base;
 
+import java.io.Serializable;
 import java.util.List;
 
 import net.iubris.socrates.model.http.response.common.Status;
 
 import com.google.api.client.util.Key;
 
-abstract public class AbstractResponse {
+@SuppressWarnings("serial")
+abstract public class AbstractResponse implements Serializable {
 
 	@Key ("status")
 	protected Status status;

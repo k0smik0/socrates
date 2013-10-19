@@ -19,6 +19,7 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.events;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -26,8 +27,10 @@ import android.util.Log;
 
 import com.google.api.client.util.Key;
 
-public class Event {
+public class Event implements Serializable {
 	
+	private static final long serialVersionUID = 5219856803968266197L;
+
 	@Key("event_id")
 	private String eventId;
 	
@@ -36,7 +39,7 @@ public class Event {
 	
 	@Key("summary")
 	private String summary;
-     
+
 	@Key("url")
 	private String urlString;
 	

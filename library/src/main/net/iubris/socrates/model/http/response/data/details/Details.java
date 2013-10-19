@@ -19,6 +19,7 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.details;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +33,10 @@ import net.iubris.socrates.model.http.response.data.search.PlaceType;
 
 import com.google.api.client.util.Key;
 
-public class Details {
+public class Details implements Serializable {
 	
+	private static final long serialVersionUID = 3586339939071087222L;
+
 	@Key("address_components")
 	private List<AddressComponent> addressComponents;
 	

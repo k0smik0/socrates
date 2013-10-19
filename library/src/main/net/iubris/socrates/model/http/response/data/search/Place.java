@@ -19,6 +19,7 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.search;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.Set;
 
@@ -27,7 +28,9 @@ import net.iubris.socrates.model.http.response.data.geocoding.Geometry;
 
 import com.google.api.client.util.Key;
 
-public class Place {	
+public class Place implements Serializable {	
+
+	private static final long serialVersionUID = -5569731947240088246L;
 
 	@Key("geometry")
 	private Geometry geometry;

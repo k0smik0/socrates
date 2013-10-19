@@ -26,6 +26,8 @@ import com.google.api.client.util.Key;
 
 public class DetailsResponse extends AbstractResponse {		
 	
+	private static final long serialVersionUID = 1765829415849043352L;
+
 	@Key ("result")
 	private Details result;
 	

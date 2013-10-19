@@ -1,0 +1,2 @@
+This branch add Serializable support to "bean" classes, in order to allow pass them to another activity.  
+It is a solution not so good as "parcelable", but it's easy to implement. And, after all, "something is always better than nothing".

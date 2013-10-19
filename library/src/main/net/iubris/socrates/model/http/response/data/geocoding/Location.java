@@ -19,11 +19,15 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.geocoding;
 
+import java.io.Serializable;
+
 import com.google.android.maps.GeoPoint;
 import com.google.api.client.util.Key;
 
-public class Location {
+public class Location implements Serializable {
 	
+	private static final long serialVersionUID = -3252881794447684678L;
+
 	@Key("lat")
 	private double latitude;
 	@Key("lng")

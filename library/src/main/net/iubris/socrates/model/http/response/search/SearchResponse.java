@@ -28,6 +28,8 @@ import com.google.api.client.util.Key;
 
 public class SearchResponse extends AbstractResponse {
 	
+	private static final long serialVersionUID = -8089578844056974620L;
+
 	@Key ("results")
 	private List<Place> results;
 	

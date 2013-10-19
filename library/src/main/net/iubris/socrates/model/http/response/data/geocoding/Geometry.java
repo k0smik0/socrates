@@ -20,9 +20,13 @@
 package net.iubris.socrates.model.http.response.data.geocoding;
 
 
+import java.io.Serializable;
+
 import com.google.api.client.util.Key;
 
-public class Geometry {
+public class Geometry implements Serializable {
+
+	private static final long serialVersionUID = 5965289114202886948L;
 
 	@Key("location")
 	/*private GeoPoint geoPoint;
@@ -36,8 +40,6 @@ public class Geometry {
 	public Location getLocation() {
 		return placeLocation;
 	}
-	
-	
 	
 	/*private Location location;
 	public Location getLocation() {		

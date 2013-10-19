@@ -19,12 +19,15 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.details;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.google.api.client.util.Key;
 
-public class OpeningHours {
+public class OpeningHours implements Serializable {
 	
+	private static final long serialVersionUID = -8515281397470396629L;
+
 	@Key("open_now")
 	private boolean openNow;
 	

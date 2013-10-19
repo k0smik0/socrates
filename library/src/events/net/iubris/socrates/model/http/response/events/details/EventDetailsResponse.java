@@ -26,6 +26,8 @@ import com.google.api.client.util.Key;
 
 public class EventDetailsResponse extends AbstractResponse {		
 	
+	private static final long serialVersionUID = -2973038083934070111L;
+
 	@Key ("result")
 	private Event result;
 	

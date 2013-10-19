@@ -19,10 +19,14 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.details.review;
 
+import java.io.Serializable;
+
 import com.google.api.client.util.Key;
 
-public class AspectRating {
+public class AspectRating implements Serializable {
 	
+	private static final long serialVersionUID = 162816385703729025L;
+
 	@Key("rating")
 	private int rating;
 	

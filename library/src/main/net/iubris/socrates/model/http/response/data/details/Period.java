@@ -19,10 +19,14 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.details;
 
+import java.io.Serializable;
+
 import com.google.api.client.util.Key;
 
-public class Period {
+public class Period implements Serializable {
 	
+	private static final long serialVersionUID = 5234665558483581878L;
+
 	@Key("close")
 	private WorkingTime close;	
 	

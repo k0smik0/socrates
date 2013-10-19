@@ -19,12 +19,15 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.geocoding;
 
+import java.io.Serializable;
 import java.util.Set;
 
 import com.google.api.client.util.Key;
 
-public class AddressComponent {
+public class AddressComponent implements Serializable {
 	
+	private static final long serialVersionUID = 2807143752869073503L;
+
 	@Key("long_name")
 	private String longName;
 	

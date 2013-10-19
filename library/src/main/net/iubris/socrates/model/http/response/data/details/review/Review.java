@@ -19,6 +19,7 @@
  ******************************************************************************/
 package net.iubris.socrates.model.http.response.data.details.review;
 
+import java.io.Serializable;
 import java.net.URI;
 import java.util.List;
 
@@ -26,26 +27,28 @@ import net.iubris.socrates.engines.base.url.UrlUtils;
 
 import com.google.api.client.util.Key;
 
-public class Review {
+public class Review implements Serializable {
 	
+	private static final long serialVersionUID = 8110289096930054514L;
+
 	@Key("aspects")
 	private List<AspectRating> aspects;
-		 
-   @Key("author_name")
-   private String authorName;
-   
-   @Key("author_url")
-   private String authorUrlString;
-   
-   private URI authorUrl;
-   
-   @Key("text")
-   private String text;
-   
-   @Key("time")
-   //private String timeString;
 
-   private long time;
+	@Key("author_name")
+	private String authorName;
+
+	@Key("author_url")
+	private String authorUrlString;
+
+	private URI authorUrl;
+
+	@Key("text")
+	private String text;
+	
+	@Key("time")
+//	private String timeString;
+
+	private long time;
 
 	public List<AspectRating> getAspects() {
 		return aspects;
