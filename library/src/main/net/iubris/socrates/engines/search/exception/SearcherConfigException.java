@@ -30,8 +30,8 @@ public class SearcherConfigException extends PlacesSearcherException {
 	public SearcherConfigException(String reason) {
 		super(reason);		
 	}
-	public SearcherConfigException(String detailMessage, Throwable throwable) {
-		super(detailMessage, throwable);
+	public SearcherConfigException(String reason, Throwable throwable) {
+		super(reason, throwable);
 	}
 	
 }

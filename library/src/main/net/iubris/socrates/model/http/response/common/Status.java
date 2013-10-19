@@ -64,7 +64,7 @@ public enum Status implements StatusHandler {
 			throw new OverQuotaException(getReason());
 		}
 	},
-	@Value REQUEST_DENIED ("your request was denied, generally because of lack of a sensor parameter.") {
+	@Value REQUEST_DENIED ("your request was denied, generally because of lack of a sensor parameter or api key is wrong/expired.") {
 		@Override
 		public List<Place> handleStatusAndGetData(SearchResponse placesSearchResponse) throws RequestDeniedException {
 			throw new RequestDeniedException(getReason());

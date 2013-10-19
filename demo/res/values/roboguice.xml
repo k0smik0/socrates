@@ -20,6 +20,6 @@
 -->
 <resources>
     <string-array name="roboguice_modules">
-        <item>net.iubris.socrates_sample._roboguice.module.SocratesModuleSample</item>        
+        <item>net.iubris.socrates_demo._roboguice.module.SocratesDemoModule</item>
     </string-array>
 </resources>

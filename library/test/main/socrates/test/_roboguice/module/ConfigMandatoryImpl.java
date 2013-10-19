@@ -32,7 +32,6 @@ public final class ConfigMandatoryImpl implements ConfigMandatory{
 	public boolean isUseSensor() {
 		return true;
 	}
-	
 
 	@Override
 	public HttpParserOutputType getOutput() {				
@@ -40,11 +39,11 @@ public final class ConfigMandatoryImpl implements ConfigMandatory{
 	}
 	@Override
 	public String getKey() {				
-		return "YOUR PLACE API KEY AIzaSyAfOlNmRr5G-4BPDd1faYsn9kvkV5ebBRk";
+		return "YOUR PLACE API KEY";
 	}
 
 	@Override
 	public String getApplicationName() {				
-		return "SocratesTest";
+		return "SocratesDemo";
 	}
 }

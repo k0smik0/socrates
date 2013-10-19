@@ -17,15 +17,15 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates_sample._roboguice.module;
+package net.iubris.socrates_demo._roboguice.module;
 
 import net.iubris.socrates._roboguice.module.AbstractSocratesModule;
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.config.SearchOptions;
-import net.iubris.socrates_sample.config.ConfigMandatoryImpl;
-import net.iubris.socrates_sample.config.SearchOptionsImpl;
+import net.iubris.socrates_demo.config.ConfigMandatoryImpl;
+import net.iubris.socrates_demo.config.SearchOptionsImpl;
 
-public class SocratesModuleSample extends AbstractSocratesModule {
+public class SocratesDemoModule extends AbstractSocratesModule {
 
 	@Override
 	protected void bindConfigMandatory() {

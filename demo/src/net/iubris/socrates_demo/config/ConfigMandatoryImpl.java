@@ -17,7 +17,7 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates_sample.config;
+package net.iubris.socrates_demo.config;
 
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.model.http.request.url.output.HttpParserOutputType;
@@ -32,19 +32,18 @@ public final class ConfigMandatoryImpl implements ConfigMandatory{
 	public boolean isUseSensor() {
 		return true;
 	}
-	
 
 	@Override
 	public HttpParserOutputType getOutput() {				
 		return HttpParserOutputType.json;
 	}
 	@Override
-	public String getKey() {				
-		return "YOUR API KEY";
+	public String getKey() {
+		return "YOUR PLACES API KEY";
 	}
 
 	@Override
 	public String getApplicationName() {				
-		return "SocratesTest";
+		return "SocratesDemo";
 	}
 }

@@ -17,7 +17,7 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates_sample.activity;
+package net.iubris.socrates_demo.activity;
 
 import java.util.List;
 
@@ -25,9 +25,10 @@ import javax.inject.Inject;
 
 import net.iubris.socrates.engines.search.Searcher;
 import net.iubris.socrates.engines.search.exception.PlacesSearcherException;
+import net.iubris.socrates.model.http.response.common.Status;
 import net.iubris.socrates.model.http.response.data.search.Place;
 import net.iubris.socrates.model.http.response.search.SearchResponse;
-import net.iubris.socrates_sample.R;
+import net.iubris.socrates_demo.R;
 import roboguice.activity.RoboActivity;
 import roboguice.inject.ContentView;
 import roboguice.inject.InjectView;
@@ -41,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 @ContentView(R.layout.main)
-public class SocratesSampleActivity extends RoboActivity {
+public class SocratesDemoActivity extends RoboActivity {
 	
 	@InjectView(R.id.button_search) Button buttonSearch;
 	@InjectView(R.id.text_field_result) TextView textView;
@@ -67,16 +68,19 @@ public class SocratesSampleActivity extends RoboActivity {
 		final Location location = new Location("dummy");
 		location.setLatitude(44.494692);
 		location.setLongitude(11.342728);
-		new RoboAsyncTask<String>(SocratesSampleActivity.this) {
+		new RoboAsyncTask<String>(SocratesDemoActivity.this) {
 			private long start;
 			protected void onPreExecute() throws Exception {
 //Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/socrates__search_task");
 				start = System.currentTimeMillis();
-				Toast.makeText(SocratesSampleActivity.this, "...searching...", Toast.LENGTH_SHORT).show();
+				Toast.makeText(SocratesDemoActivity.this, "...searching...", Toast.LENGTH_SHORT).show();
 			};
 			@Override
 			public String call() throws PlacesSearcherException {
 				SearchResponse searchResponse = placeSearcher.search(location);
+				Status status = searchResponse.getStatus();
+				if (!status.equals(Status.OK))
+					throw new PlacesSearcherException(status.getReason());
 				return parseResults( searchResponse.getResults() );
 			}
 			@Override
@@ -91,6 +95,7 @@ public class SocratesSampleActivity extends RoboActivity {
 			};
 			@Override
 			protected void onException(Exception e) throws RuntimeException {
+				Toast.makeText(SocratesDemoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			};
 		}.execute();
@@ -99,7 +104,7 @@ public class SocratesSampleActivity extends RoboActivity {
 	private String parseResults(List<Place> places) {
 		StringBuilder stringBuilder = new StringBuilder();
 		for (Place p: places) {
-			stringBuilder.append(p.getName()+" ");
+			stringBuilder.append(p.getName()+" at: ");
 			net.iubris.socrates.model.http.response.data.geocoding.Location loc = p.getGeometry().getLocation();
 			stringBuilder.append(loc.getLatitude()+","+loc.getLongitude());
 			stringBuilder.append("\n");

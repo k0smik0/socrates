@@ -19,9 +19,9 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.iubris.socrates_sample"
+    package="net.iubris.socrates_demo"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.1" >
 
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="17"/>
    <uses-permission android:name="android.permission.INTERNET" />
@@ -34,7 +34,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <activity
-            android:name=".activity.SocratesSampleActivity"
+            android:name=".activity.SocratesDemoActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

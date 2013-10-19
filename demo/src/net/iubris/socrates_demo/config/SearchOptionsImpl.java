@@ -17,7 +17,7 @@
  * along with 'Socrates' ; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
  ******************************************************************************/
-package net.iubris.socrates_sample.config;
+package net.iubris.socrates_demo.config;
 
 import java.util.HashSet;
 import java.util.List;
@@ -29,20 +29,14 @@ import net.iubris.socrates.model.http.request.url.parameters.optional.search.val
 import net.iubris.socrates.model.http.response.data.search.PlaceType;
 
 public final class SearchOptionsImpl implements SearchOptions {
-	public SearchOptionsImpl() {
-		System.out.println("ConfigOptionalImpl: "+this.hashCode());
-	}
 	
-
 	@Override
 	public Set<PlaceType> getTypes() {
 		HashSet<PlaceType> hashSet = new HashSet<PlaceType>();
-		hashSet.add(PlaceType.church);
+		hashSet.add(PlaceType.museum);
 		//hashSet.add(PlaceType.cafff);
 		return hashSet;
 	}
-
-	
 
 	@Override
 	public List<String> getNames() {				

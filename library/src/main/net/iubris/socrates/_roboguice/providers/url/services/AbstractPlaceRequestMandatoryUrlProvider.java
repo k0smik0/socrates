@@ -52,24 +52,23 @@ public abstract class AbstractPlaceRequestMandatoryUrlProvider implements Provid
 	public GenericUrl get() {
 		
 		mandatoryUrl = urlWithoutParameters.clone();
-				
-		
-		//System.out.println("34:"+mandatoryUrl);
 		
 		mandatoryUrl.getPathParts().add(serviceType.getServiceName());
 		
 		//urlWithoutParameters.appendRawPath("/"+serviceType.getServiceName());
 		
 		addOutput();
-		//System.out.println("37:"+mandatoryUrl);
 		
 		addMethod();
 		
-		
-
-		setValue(CommonMandatoryParameters.key, config.getKey());
+//		String key = config.getKey();
+//		if (key.length()!=39)
+//			throw new MandatoryConfigKeyException("Your key is invalid");
+//		setValue(CommonMandatoryParameters.key, config.getKey());
+		mandatoryUrl.put(CommonMandatoryParameters.key.name(), config.getKey());
 		//System.out.println(mandatoryUrl);
-		setValue(CommonMandatoryParameters.sensor, config.isUseSensor());
+//		setValue(CommonMandatoryParameters.sensor, config.isUseSensor());
+		mandatoryUrl.put(CommonMandatoryParameters.sensor.name(), config.isUseSensor());
 		//System.out.println(mandatoryUrl);
 		
 		return mandatoryUrl;
@@ -81,9 +80,11 @@ public abstract class AbstractPlaceRequestMandatoryUrlProvider implements Provid
 		mandatoryUrl.appendRawPath("/"+config.getOutput().name());
 	}
 	
+	/*
 	private void setValue(CommonMandatoryParameters placeUrlParameter, Object value) {
 		mandatoryUrl.put(placeUrlParameter.name(), value);
 	}
+	*/
 	
 	protected GenericUrl getMandatoryUrl() {
 		return mandatoryUrl;
