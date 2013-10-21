@@ -9,8 +9,13 @@ Why *Socrates*? Because, as homonim philosopher said:
 
 And so Socrates component just search (google) places.  
 
--> a simple [video demo](http://www.youtube.com/watch?v=qAdaGxsNMzA)  
+ - a simple [video demo](http://www.youtube.com/watch?v=qAdaGxsNMzA)  
+ - or you can try the demo:  
+    - [apk from "serialized branch", on github](https://github.com/k0smik0/socrates/blob/serializable/demo/build_signed/net.iubris.socrates_demo.apk?raw=true)
   
+    
+	- [apk from play store](https://play.google.com/store/apps/details?id=net.iubris.socrates_demo) or scan <img src="http://chart.googleapis.com/chart?cht=qr&chs=100x100&choe=UTF-8&chld=H|0&chl=http://goo.gl/O4D3NU"/>
+
   
 <br/>
 ###usage:
