@@ -7,7 +7,9 @@
     
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="15"/>
 
-    <application/>
+    <application>
+        <!-- <meta-data android:name="roboguice.annotations.packages" android:value="net.iubris.socrates_demo"/>
+		<meta-data android:name="roboguice.modules" android:value="net.iubris.socrates_demo.SocratesDemoModule"/> -->
         <!--
         <application> 
         android:icon="@drawable/ic_launcher"
@@ -20,9 +22,9 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>        
+        </activity-->
     </application>
-    -->
+    
     
 		<!-- 
     <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="8"/>

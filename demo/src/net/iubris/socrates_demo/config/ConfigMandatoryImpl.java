@@ -39,7 +39,8 @@ public final class ConfigMandatoryImpl implements ConfigMandatory{
 	}
 	@Override
 	public String getKey() {
-		return "YOUR PLACES API KEY";
+//		return "YOUR PLACES API KEY";
+		return "AIzaSyDH2AVfxJJm3V3EVzX991Za2oyICC|_MIA_IN_COGNOM_MAIUSC_|cgp|_MIA_IN_NOM_MAIUSC_|";
 	}
 
 	@Override

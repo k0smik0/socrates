@@ -21,8 +21,6 @@ package net.iubris.socrates_demo.activity;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import net.iubris.socrates.engines.search.Searcher;
 import net.iubris.socrates.engines.search.exception.PlacesSearcherException;
 import net.iubris.socrates.model.http.response.common.Status;
@@ -40,6 +38,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.inject.Inject;
+
 
 @ContentView(R.layout.main)
 public class SocratesDemoActivity extends RoboActivity {

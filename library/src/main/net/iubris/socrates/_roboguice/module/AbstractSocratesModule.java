@@ -43,7 +43,13 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 
 public abstract class AbstractSocratesModule extends AbstractModule {
-
+	
+//	private Application application;
+//
+//	public AbstractSocratesModule(Application application) {
+//		this.application = application;
+//	}
+	
 	@Override
 	protected final void configure() {
 

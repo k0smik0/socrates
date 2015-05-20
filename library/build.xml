@@ -11,8 +11,8 @@
 	<property name="docurl" value="https://github.com/k0smik0/socrates"/>
 	
 	
-	<property name="android-path" value="/data/fucina/develop/usr/apps/android-sdk/" />
-	<property name="android-sdk-target-version" value="17"/>
+   	<property name="android-path" value="/data/lab/android/adt/" />
+	<property name="android-sdk-target-version" value="22"/>
 		
 	<property name="main-libs-dir" value="libs"/>
 			
