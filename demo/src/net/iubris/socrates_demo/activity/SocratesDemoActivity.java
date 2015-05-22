@@ -21,6 +21,8 @@ package net.iubris.socrates_demo.activity;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import net.iubris.socrates.engines.search.Searcher;
 import net.iubris.socrates.engines.search.exception.PlacesSearcherException;
 import net.iubris.socrates.model.http.response.common.Status;
@@ -39,21 +41,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.inject.Inject;
-
 
 @ContentView(R.layout.main)
 public class SocratesDemoActivity extends RoboActivity {
 	
 	@InjectView(R.id.button_search) Button buttonSearch;
 	@InjectView(R.id.text_field_result) TextView textView;
-	@Inject private Searcher placeSearcher;
+	@Inject   
+	private Searcher placeSearcher;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 //Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/socrates__startup");
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.main);
+		
+		// use factory if you don't use roboguice or similar
+		/*try {
+			placeSearcher = SocratesBaseFactory.getSearcher( new SearchOptionsImpl(), new ConfigMandatoryImpl());
+		} catch (MalformedSearchUrlConfigException e) {
+			e.printStackTrace();
+		}*/
 		
 		textView.setMovementMethod(new ScrollingMovementMethod());
 	}

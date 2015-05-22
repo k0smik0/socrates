@@ -18,7 +18,7 @@
 		<link>
 			<name>test</name>
 			<type>2</type>
-			<location>/data/fucina/develop/home/k0smik0/workspace/Socrates/library/test</location>
+         <location>../library/test</location>
 		</link>
 	</linkedResources>
 </projectDescription>
