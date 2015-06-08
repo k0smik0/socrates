@@ -32,6 +32,10 @@ import net.iubris.socrates.model.http.response.data.search.PlaceType;
 
 import com.google.api.client.util.Key;
 
+/**
+ * Details for {@link Place}, honoring 
+ * <a href="https://developers.google.com/places/webservice/details#PlaceDetailsResponses">PlaceDetailsResponses</a>
+ */
 public class Details {
 	
 	@Key("address_components")

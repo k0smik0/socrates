@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * 
+ * Copyleft 2013 Massimiliano Leone - massimiliano.leone@iubris.net .
  * Place.java is part of 'Socrates'.
  * 
  * 'Socrates' is free software; you can redistribute it and/or modify
@@ -27,6 +27,9 @@ import net.iubris.socrates.model.http.response.data.geocoding.Geometry;
 
 import com.google.api.client.util.Key;
 
+/**
+ * Java mapping of <a href="https://developers.google.com/places/webservice/search#PlaceSearchResults">Place's search result</a>
+ */
 public class Place {	
 
 	@Key("geometry")
