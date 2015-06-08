@@ -41,18 +41,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 @ContentView(R.layout.main)
 public class SocratesDemoActivity extends RoboActivity {
 	
 	@InjectView(R.id.button_search) Button buttonSearch;
 	@InjectView(R.id.text_field_result) TextView textView;
-	@Inject private Searcher placeSearcher;
+	@Inject   
+	private Searcher placeSearcher;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 //Debug.startMethodTracing(Environment.getExternalStorageDirectory().getPath()+"/traces/socrates__startup");
 		super.onCreate(savedInstanceState);
 //		setContentView(R.layout.main);
+		
+		// use factory if you don't use roboguice or similar
+		/*try {
+			placeSearcher = SocratesBaseFactory.getSearcher( new SearchOptionsImpl(), new ConfigMandatoryImpl());
+		} catch (MalformedSearchUrlConfigException e) {
+			e.printStackTrace();
+		}*/
 		
 		textView.setMovementMethod(new ScrollingMovementMethod());
 	}

@@ -22,11 +22,6 @@ package net.iubris.socrates_demo.config;
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.model.http.request.url.output.HttpParserOutputType;
 
-/*
-@Provides
-Class<PlacesList> providePlaceListClass() {
-	return PlacesList.class;
-}*/
 public final class ConfigMandatoryImpl implements ConfigMandatory{
 	@Override
 	public boolean isUseSensor() {
@@ -39,7 +34,8 @@ public final class ConfigMandatoryImpl implements ConfigMandatory{
 	}
 	@Override
 	public String getKey() {
-		return "YOUR PLACES API KEY";
+//		return "YOUR PLACES API KEY";
+      return "AIzaSyDH2AVfxJJm3V3EVzX991Za2oyICCLcgpM";
 	}
 
 	@Override

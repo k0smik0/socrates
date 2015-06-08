@@ -19,13 +19,13 @@
  ******************************************************************************/
 package net.iubris.socrates_demo._roboguice.module;
 
-import net.iubris.socrates._roboguice.module.AbstractSocratesModule;
+import net.iubris.socrates._di._roboguice.modules.AbstractSocratesBaseModule;
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.config.SearchOptions;
 import net.iubris.socrates_demo.config.ConfigMandatoryImpl;
 import net.iubris.socrates_demo.config.SearchOptionsImpl;
 
-public class SocratesDemoModule extends AbstractSocratesModule {
+public class SocratesDemoModule extends AbstractSocratesBaseModule {
 
 	@Override
 	protected void bindConfigMandatory() {
