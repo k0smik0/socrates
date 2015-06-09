@@ -21,12 +21,12 @@ package net.iubris.socrates._di.providers.url.services.details;
 
 import javax.inject.Inject;
 
-import com.google.api.client.http.GenericUrl;
-
 import net.iubris.socrates._di.providers.url.services.AbstractPlaceRequestMandatoryUrlProvider;
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.engines.details.url.annotation.ServiceTypeDetails;
 import net.iubris.socrates.model.http.request.url.service.ServiceType;
+
+import com.google.api.client.http.GenericUrl;
 
 public class DetailsRequestMandatoryUrlProvider extends AbstractPlaceRequestMandatoryUrlProvider {
 		

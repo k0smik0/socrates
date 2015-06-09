@@ -19,10 +19,7 @@
  ******************************************************************************/
 package net.iubris.socrates._roboguice.module;
 import net.iubris.socrates._roboguice.providers.config.xml.PlaceConfigXmlProvider;
-import net.iubris.socrates.config.PlaceConfig;
 import net.iubris.socrates.config.xml.PlaceConfigXml;
-
-import com.google.inject.AbstractModule;
 
 
 public class SocratesXmlConfigModule extends AbstractModule {

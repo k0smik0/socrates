@@ -22,9 +22,6 @@ package net.iubris.socrates._roboguice.providers.config.xml;
 import net.iubris.socrates.config.xml.PlaceConfigXml;
 import net.iubris.socrates.config.xml.PlaceConfigXmlParser;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
-
 public class PlaceConfigXmlProvider implements Provider<PlaceConfigXml> {
 
 	private PlaceConfigXmlParser placeConfigXmlParser;
