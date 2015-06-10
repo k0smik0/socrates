@@ -28,6 +28,7 @@ import net.iubris.socrates.model.http.response.data.details.review.Review;
 import net.iubris.socrates.model.http.response.data.events.Event;
 import net.iubris.socrates.model.http.response.data.geocoding.AddressComponent;
 import net.iubris.socrates.model.http.response.data.geocoding.Geometry;
+import net.iubris.socrates.model.http.response.data.search.Place;
 import net.iubris.socrates.model.http.response.data.search.PlaceType;
 
 import com.google.api.client.util.Key;

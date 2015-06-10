@@ -20,11 +20,6 @@
 package net.iubris.socrates.config.xml;
 
 
-import com.google.inject.Inject;
-
-import net.iubris.prometeus.assets.XmlAssetReader;
-import net.iubris.prometeus.assets.exceptions.XmlAssetReaderFileNotFoundException;
-import net.iubris.prometeus.base.exceptions.XmlReaderParsingException;
 
 public class PlaceConfigXmlParser {
 	

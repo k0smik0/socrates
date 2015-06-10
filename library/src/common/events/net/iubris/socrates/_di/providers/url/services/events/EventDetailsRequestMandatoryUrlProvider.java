@@ -21,13 +21,13 @@ package net.iubris.socrates._di.providers.url.services.events;
 
 import javax.inject.Inject;
 
-import com.google.api.client.http.GenericUrl;
-
 import net.iubris.socrates._di.providers.url.services.AbstractPlaceRequestMandatoryUrlProvider;
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.engines.events.details.url.annotation.ServiceTypeEvent;
 import net.iubris.socrates.model.http.request.url.service.ServiceType;
 import net.iubris.socrates.model.http.request.url.service.events.method.EventMethod;
+
+import com.google.api.client.http.GenericUrl;
 
 public class EventDetailsRequestMandatoryUrlProvider extends AbstractPlaceRequestMandatoryUrlProvider {
 		

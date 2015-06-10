@@ -19,8 +19,8 @@
  ******************************************************************************/
 package net.iubris.socrates.engines.search;
 
-import java.text.DecimalFormat;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
 
@@ -43,6 +43,7 @@ import net.iubris.socrates.model.http.response.search.SearchResponse;
 import org.codehaus.jackson.JsonProcessingException;
 
 import android.location.Location;
+
 import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import com.google.api.client.http.GenericUrl;
 import com.google.api.client.http.HttpRequestFactory;

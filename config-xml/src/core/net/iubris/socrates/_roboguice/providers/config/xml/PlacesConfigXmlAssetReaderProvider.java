@@ -20,15 +20,8 @@
 package net.iubris.socrates._roboguice.providers.config.xml;
 
 
-import org.simpleframework.xml.Serializer;
-
-import net.iubris.prometeus.assets.XmlAssetReader;
 import net.iubris.socrates.config.xml.PlaceConfigXml;
-
 import android.content.res.AssetManager;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 
 public class PlacesConfigXmlAssetReaderProvider 

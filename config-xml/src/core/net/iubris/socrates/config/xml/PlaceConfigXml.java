@@ -23,13 +23,8 @@ package net.iubris.socrates.config.xml;
 import java.util.List;
 import java.util.Set;
 
-import net.iubris.socrates.config.PlaceConfig;
-import net.iubris.socrates.model.data.places.PlaceType;
-import net.iubris.socrates.url.HttpParserOutputType;
-
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
-import org.simpleframework.xml.Root;
+import net.iubris.socrates.model.http.request.url.output.HttpParserOutputType;
+import net.iubris.socrates.model.http.response.data.search.PlaceType;
 
 @Root
 public class PlaceConfigXml implements PlaceConfig {	
