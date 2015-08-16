@@ -107,7 +107,9 @@ public class SocratesDemoActivity extends RoboActivity {
 				Toast.makeText(SocratesDemoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 				e.printStackTrace();
 			};
-		}.execute();
+		}/*.execute()*/;
+		
+		
 	}
 
 	private String parseResults(List<Place> places) {

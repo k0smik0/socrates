@@ -19,8 +19,8 @@
  ******************************************************************************/
 package socrates.test.roboguiced.runner;
 
-import org.junit.runners.model.InitializationError;
 
+import org.junit.runners.model.InitializationError;
 import roboguice.RoboGuice;
 import roboguice.inject.ContextScope;
 import android.content.Context;

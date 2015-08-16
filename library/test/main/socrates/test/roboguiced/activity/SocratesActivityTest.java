@@ -48,7 +48,8 @@ import android.location.Location;
 
 
 //@RunWith(RobolectricTestRunner.class)
-@RunWith(InjectedTestRunner.class)
+//@RunWith(InjectedTestRunner.class)
+//@RunWith(AndroidTestRunner.class)
 public class SocratesActivityTest {
 
 	@Inject

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src/common/base"/>
-	<classpathentry kind="src" path="src/common/events"/>
+	<classpathentry kind="src" path="src/common/core"/>
+	<classpathentry excluding="net/iubris/socrates/model/http/events/details/exception/NotFoundException.java" kind="src" path="src/common/events"/>
 	<classpathentry kind="src" path="src/roboguiced"/>
 	<classpathentry kind="src" path="src/preconditions"/>
 	<classpathentry kind="src" path="gen"/>

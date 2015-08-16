@@ -19,7 +19,7 @@
  ******************************************************************************/
 package socrates.test.roboguiced.activity;
 
-import net.iubris.socrates.config.ConfigOptional;
+import net.iubris.socrates.config.SearchOptions;
 import net.iubris.socrates.engines.search.url.SearchRequestUrlBuilder;
 
 import org.junit.Before;
@@ -40,12 +40,11 @@ abstract public class AbstractActivityTest extends ActivityTestCase {
 	
 	protected RoboInjector injector;
 	//PlacesFinderProvider<Place> placesFinderProvider;
-	//private net.iubris.ulysses.finder.generics.result.PlacesFinder<Place> placesFinderGenericsResult;
 	//PlacesFinder<Place> placesFinderGenericsResult;
-	//private net.iubris.ulysses.finder.generics.list.PlacesFinder<net.iubris.ulysses.model.nongenerics.PlacesList>placesFinderGenericsList;
 	//private PlacesFinder placesFinderNoGenerics;
 	protected Location location;
-	protected ConfigOptional placesConfig;
+//	protected ConfigOptional placesConfig;
+	protected SearchOptions searchOptions;
 	//private XmlAssetReader<PlacesConfig> xmlReader;
 	protected SearchRequestUrlBuilder placeRequestUrlBuilder;
 	protected HttpRequestFactory httpRequestFactory;
@@ -59,6 +58,6 @@ abstract public class AbstractActivityTest extends ActivityTestCase {
 		
 		injector = RoboGuice.getInjector( Robolectric.application.getApplicationContext() );
 				
-		placesConfig = injector.getInstance(ConfigOptional.class);
+		searchOptions = injector.getInstance(SearchOptions.class);
 	}	
 }

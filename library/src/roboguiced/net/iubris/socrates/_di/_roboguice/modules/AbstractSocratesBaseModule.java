@@ -73,5 +73,5 @@ public abstract class AbstractSocratesBaseModule extends AbstractModule {
 	@Provides @PlacesHttpTransport
 	public HttpTransport providesHttpTransport() {
 		return AndroidHttp.newCompatibleTransport();
-	}	
+	}
 }

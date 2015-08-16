@@ -20,16 +20,16 @@
 package socrates.test.roboguiced.module;
 
 
-import socrates.test.config.ConfigMandatoryImpl;
-import socrates.test.config.SearchOptionsImpl;
-import net.iubris.socrates._roboguice.module.AbstractSocratesModule;
+import net.iubris.socrates._di._roboguice.modules.AbstractSocratesBaseModule;
 import net.iubris.socrates.config.ConfigMandatory;
 import net.iubris.socrates.config.SearchOptions;
+import socrates.test.config.ConfigMandatoryImpl;
+import socrates.test.config.SearchOptionsImpl;
 
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 
-public class SocratesModuleTest extends AbstractSocratesModule {
+public class SocratesModuleTest extends AbstractSocratesBaseModule {
 
 	@Override
 	public HttpTransport providesHttpTransport() {

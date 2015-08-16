@@ -17,7 +17,7 @@ import net.iubris.socrates.model.http.response.data.details.Period;
 import net.iubris.socrates.model.http.response.data.details.review.AspectRating;
 import net.iubris.socrates.model.http.response.data.details.review.Review;
 import net.iubris.socrates.model.http.response.data.events.Event;
-import net.iubris.socrates.model.http.response.data.search.Place;
+import net.iubris.socrates.model.http.response.data.search.GooglePlace;
 import net.iubris.socrates.model.http.response.details.DetailsResponse;
 import net.iubris.socrates.model.http.response.search.SearchResponse;
 
@@ -41,10 +41,16 @@ public class SocratesTest {
 
 	private int placeNumber = 1;
 	
+	private double latitude;
+	private double longitude;
+	
 	public SocratesTest() {
-		location = new Location("GPS");
-		location.setLatitude(44.4937382342);
-		location.setLongitude(11.3769477681);
+//		location = new Location("GPS");
+//		location.setLatitude(44.4937382342);
+//		location.setLongitude(11.3769477681);
+		
+		latitude = 44.4937382342;
+		longitude = 11.3769477681;
 		
 		SearchOptions searchOptions = new SearchOptionsImpl();
 		ConfigMandatory configMandatory = new ConfigMandatoryImpl();
@@ -62,7 +68,9 @@ public class SocratesTest {
 		try {
 //			placeSearcher.initFromConfig(configOptional);
 //			System.out.println( "RequestUrl: "+placeSearcher.getRequestUrl() );
-			searchResponse = placeSearcher.search(location);
+//			searchResponse = placeSearcher.search(location);
+			searchResponse = placeSearcher.search(latitude, longitude);
+			
 			System.out.println( "RequestUrl: "+placeSearcher.getRequestUrl() );
 			System.out.println( "status reason:" +searchResponse.getStatus().getReason());			
 		} catch (PlacesSearcherException e) {
@@ -92,8 +100,8 @@ public class SocratesTest {
 	}
 	
 	
-	private void printResults(List<Place> places,int i) {
-		for (Place p: places) {
+	private void printResults(List<GooglePlace> places,int i) {
+		for (GooglePlace p: places) {
 			System.out.print(i+" ");
 			System.out.print(p.getName()+" ");
 			//System.out.println(p.getGeometry().getGeoPoint());
@@ -105,14 +113,14 @@ public class SocratesTest {
 	
 	
 	
-	private void printResultsWithDetail(List<Place> places,int i) throws DetailsRetrieverException {
-		for (Place p: places) {
+	private void printResultsWithDetail(List<GooglePlace> places,int i) throws DetailsRetrieverException {
+		for (GooglePlace p: places) {
 			System.out.print(i+" ");
 			System.out.print(p.getName()+" ");			
 			//System.out.println(p.getGeometry().getGeoPoint());
 			System.out.print(p.getGeometry().getLocation().getLatitude()+" "+p.getGeometry().getLocation().getLongitude()+" ");
 			
-			String reference = p.getReference();
+			String reference = p.getPlaceId();
 			//System.out.println(reference);
 			DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieve(reference);
 			
@@ -197,9 +205,11 @@ public class SocratesTest {
 	public void retrieveDetails() {
 		System.out.println("-- findLocationsDetails --");			
 		try {
-			SearchResponse  placeList = placeSearcher.search(location);
-			for (Place place: placeList.getResults()) {
-				String reference = place.getReference();
+			SearchResponse  placeList = 
+//					placeSearcher.search(location);
+					placeSearcher.search(latitude, longitude);
+			for (GooglePlace place: placeList.getResults()) {
+				String reference = place.getPlaceId();
 				DetailsResponse placeDetailsResponse = placeDetailsRetriever.retrieve(reference);
 				System.out.print("InternationalPhoneNumber: "+placeDetailsResponse.getResult().getInternationalPhoneNumber()+" ");
 				System.out.println("details: "+placeDetailsResponse.getResult().getUri());
@@ -227,7 +237,7 @@ public class SocratesTest {
 			placeTypes.add( PlaceType.hospital);
 			PlacesSearchResponse placeList = placeFinder.findPlaces(location,placeTypes);
 			System.out.println(placeList.getStatus().getReason());
-			for (Place p: placeList.getResults()) {
+			for (GooglePlace p: placeList.getResults()) {
 				System.out.println(p);
 			}
 		} catch (PlacesFinderException e) {

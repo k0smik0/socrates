@@ -39,7 +39,14 @@ public final class ConfigMandatoryImpl implements ConfigMandatory{
 	}
 	@Override
 	public String getKey() {				
-		return "YOUR PLACE API KEY";
+//		return "AIzaSyAfOlNmRr5G-4BPDd1faYsn9kvkV5ebBRk"; // ks 
+//		return "AIzaSyCNC3beu2WTmnkQTApJaJDi9VHSRnA44ic"; // mx android not working
+		return "AIzaSyDH2AVfxJJm3V3EVzX991Za2oyICCLcgpM"; // mx browser working
+		/*
+		 * 10:32:7F:72:53:D0:62:2D:FB:CA:66:B9:3D:C3:98:27:64:30:15:54;net.iubris.ratafia
+FF:3B:4F:62:43:EF:7F:05:6A:EC:65:D9:27:74:F4:45:91:2A:13:2C;net.iubris.ratafia
+		 */
+		
 	}
 
 	@Override

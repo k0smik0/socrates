@@ -2,7 +2,7 @@
 
 1. create a new Java Project following the robolectric [how-to][1]
   
-2. add all jars in Socrates/libs to SocratesTest classpath
+2. add all jars from Socrates/libs to SocratesTest classpath
 
 3. add javassist.jar to SocratesTest classpath (not documented in robolectric howto ;/) 
 

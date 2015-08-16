@@ -29,12 +29,12 @@
 	<property name="build.dir" value="build" />
 	
 	<property name="src.preconditions" value="preconditions"/>
-	<property name="src.base" value="common/base"/>
+	<property name="src.core" value="common/core"/>
 	<property name="src.events" value="common/events"/>
 	<property name="src.roboguiced" value="roboguiced"/>
 	
 	<property name="jar-preconditions.file" value="${build.dir}/jars/google-preconditions.jar" />
-	<property name="jar-base.file" value="${build.dir}/jars/socrates-base.jar" />
+	<property name="jar-core.file" value="${build.dir}/jars/socrates-core.jar" />
 	<property name="jar-events.file" value="${build.dir}/jars/socrates-events.jar" />
 	<property name="jar-roboguiced.file" value="${build.dir}/jars/socrates-roboguiced.jar" />
 	
@@ -49,7 +49,7 @@
 		</fileset>
 	</path>
 	
-	<path id="classpath-base">
+	<path id="classpath-core">
 		<path refid="classpath-android"/>		
 		<fileset dir="${libs-dir}">
 			<include name="google*.jar"/>
@@ -59,15 +59,15 @@
 	</path>
 	
 	<path id="classpath-events">
-		<path refid="classpath-base"/>
+		<path refid="classpath-core"/>
 		<fileset dir="${build.dir}/jars">
-			<include name="*base.jar"/>
+			<include name="*core.jar"/>
 			<include name="*precon*.jar"/>
 		</fileset>
 	</path>
 	
 	<path id="classpath-roboguiced">
-    <path refid="classpath-base"/>
+    <path refid="classpath-core"/>
     <path refid="classpath-events"/>
     <fileset dir="${build.dir}/jars">
 			<include name="*events.jar"/>
@@ -82,8 +82,8 @@
 		<delete dir="${build.dir}/classes/${src.preconditions}"/>
 	</target>
 	
-	<target name="clean-base">
-		<delete dir="${build.dir}/classes/${src.base}"/>
+	<target name="clean-core">
+		<delete dir="${build.dir}/classes/${src.core}"/>
 	</target>
 	
 	<target name="clean-events">
@@ -94,7 +94,7 @@
 		<delete dir="${build.dir}/classes/${src.roboguiced}"/>
 	</target>
 	  
-	<target name="clean" depends="clean-base, clean-events"/>
+	<target name="clean" depends="clean-core, clean-events"/>
 
 	<target name="compile-preconditions">
 		<mkdir dir="${build.dir}/classes/${src.preconditions}"/>
@@ -105,17 +105,17 @@
 		</javac>
 	</target>	
 			
-	<target name="compile-base">
-		<mkdir dir="${build.dir}/classes/${src.base}"/>
-		<javac destdir="${build.dir}/classes/${src.base}" includeantruntime="false">
-			<src path="${src.root}/${src.base}"/>
+	<target name="compile-core">
+		<mkdir dir="${build.dir}/classes/${src.core}"/>
+		<javac destdir="${build.dir}/classes/${src.core}" includeantruntime="false">
+			<src path="${src.root}/${src.core}"/>
 			<include name="**/*.java"/>
 			<exclude name="**/LocationNullException.java"/>
-			<classpath refid="classpath-base"/>
+			<classpath refid="classpath-core"/>
 		</javac>
 	</target>
 	
-	<target name="compile-events" depends="jar-base">
+	<target name="compile-events" depends="jar-core">
 		<mkdir dir="${build.dir}/classes/${src.events}"/>
 		<javac destdir="${build.dir}/classes/${src.events}" includeantruntime="false">
 			<src path="${src.root}/${src.events}" />
@@ -124,7 +124,7 @@
 		</javac>
 	</target>
 	
-	<target name="compile-roboguiced" depends="jar-base, jar-events">
+	<target name="compile-roboguiced" depends="jar-core, jar-events">
 		<mkdir dir="${build.dir}/classes/${src.roboguiced}"/>
 		<javac destdir="${build.dir}/classes/${src.roboguiced}" includeantruntime="false">
 			<src path="${src.root}/${src.roboguiced}" />
@@ -133,9 +133,9 @@
 		</javac>
 	</target>
 		
-	<target name="jar-base" depends="clean-base, compile-base">
+	<target name="jar-core" depends="clean-core, compile-core">
 		<mkdir dir="${build.dir}/jars/"/>
-		<jar destfile="${jar-base.file}" basedir="${build.dir}/classes/${src.base}" >
+		<jar destfile="${jar-core.file}" basedir="${build.dir}/classes/${src.core}" >
 			<manifest>
 				<attribute name="Built-By" value="${user}" />    
         <attribute name="Bundle-Name" value="${name}" />
@@ -147,7 +147,7 @@
 			</manifest>			
 			<metainf dir="." includes="${license.file}"/>
 		</jar>
-		<antcall target="clean-base"/>
+		<antcall target="clean-core"/>
 	</target>
 	
 	<target name="jar-events" depends="clean-events, compile-events">
@@ -201,6 +201,6 @@
 		<antcall target="clean-preconditions"/>
 	</target>
 		
-	<target name="jars" depends="jar-base, jar-events, jar-roboguiced, jar-preconditions"/>
+	<target name="jars" depends="jar-core, jar-events, jar-roboguiced, jar-preconditions"/>
 
 </project>

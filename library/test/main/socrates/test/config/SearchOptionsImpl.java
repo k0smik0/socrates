@@ -26,7 +26,7 @@ import java.util.Set;
 import net.iubris.socrates.config.SearchOptions;
 import net.iubris.socrates.model.http.request.url.language.Language;
 import net.iubris.socrates.model.http.request.url.parameters.optional.search.values.RankBy;
-import net.iubris.socrates.model.http.response.data.search.PlaceType;
+import net.iubris.socrates.model.http.response.data.search.GooglePlaceType;
 
 public final class SearchOptionsImpl implements SearchOptions {
 //	public SearchOptionsImpl() {
@@ -35,9 +35,12 @@ public final class SearchOptionsImpl implements SearchOptions {
 	
 
 	@Override
-	public Set<PlaceType> getTypes() {
-		HashSet<PlaceType> hashSet = new HashSet<PlaceType>();
-		hashSet.add(PlaceType.museum);
+	public Set<GooglePlaceType> getTypes() {
+		HashSet<GooglePlaceType> hashSet = new HashSet<GooglePlaceType>();
+//		hashSet.add(GooglePlaceType.museum);
+		hashSet.add(GooglePlaceType.bar);
+		hashSet.add(GooglePlaceType.cafe);
+		hashSet.add(GooglePlaceType.liquor_store);
 		return hashSet;
 	}
 

@@ -45,9 +45,8 @@ public class EventsDetailsRetriever {
 		this.httpRequestFactory = httpRequestFactory;
 	}
 	
-	public EventDetailsResponse retrieveDetails(String reference) throws EventDetailsRetrieverException {
-//Ln.d(reference);		
-		eventDetailsRequestUrlBuilder.resetUrl().setReference(reference);
+	public EventDetailsResponse retrieveDetails(String placeId) throws EventDetailsRetrieverException {
+		eventDetailsRequestUrlBuilder.resetUrl().setPlaceId(placeId);
 		try {
 			return httpRequestFactory.buildGetRequest(eventDetailsRequestUrlBuilder.getUrl()).execute().parseAs(EventDetailsResponse.class);
 		} catch (GoogleJsonResponseException e) {

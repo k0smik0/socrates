@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry excluding="socrates/test/roboguiced/runner/InjectedTestRunner.java|socrates/test/roboguiced/runner/AndroidTestRunner.java|socrates/test/roboguiced/activity/AbstractActivityTest.java|socrates/test/roboguiced/activity/SocratesActivityTest.java" kind="src" path="main"/>
+	<classpathentry excluding="crypt/|http/|model/" kind="src" path="experimental"/>
+	<classpathentry kind="src" path="base"/>
+	<classpathentry kind="src" path="events"/>
+	<classpathentry kind="src" path="roboguiced"/>
+	<classpathentry kind="src" path="preconditions"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/socrates-library"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/robolectric"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="libs/guice-4.0.jar"/>
+	<classpathentry kind="lib" path="libs/maps.jar"/>
+	<classpathentry kind="lib" path="libs/android.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

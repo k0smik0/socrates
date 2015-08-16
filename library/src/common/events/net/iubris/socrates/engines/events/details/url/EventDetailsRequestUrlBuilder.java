@@ -29,12 +29,6 @@ import com.google.api.client.http.GenericUrl;
 
 public class EventDetailsRequestUrlBuilder extends AbstractDetailsRequestUrlBuilder<EventDetailsRequestUrlBuilder> {
 	
-	/*
-	@Inject
-	public EventDetailsRequestUrlBuilder(EventDetailsRequestMandatoryUrlBuilder requestUrlMandatory) {
-		super(requestUrlMandatory);
-	}*/
-	
 	@Inject
 	public EventDetailsRequestUrlBuilder(@EventDetailsRequestMandatoryUrl GenericUrl requestUrl) {
 		super(requestUrl);
