@@ -50,8 +50,9 @@ public class DetailsRetriever {
 		this.detailsRequestUrlBuilder = detailstRequestUrlBuilder;
 		this.httpRequestFactory = httpRequestFactory;
 		Language language = searchOptions.getLanguage();
-		if (language!=null)
+		if (language!=null) {
 			this.language = language;
+		}
 	}
 	
 	public DetailsRetriever setLanguage(Language language) {		

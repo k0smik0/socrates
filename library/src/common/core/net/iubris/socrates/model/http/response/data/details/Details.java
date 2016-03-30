@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.iubris.socrates.engines.base.url.UrlUtils;
+import net.iubris.socrates.model.http.response.common.Photo;
 import net.iubris.socrates.model.http.response.data.details.review.Review;
 import net.iubris.socrates.model.http.response.data.events.Event;
 import net.iubris.socrates.model.http.response.data.geocoding.AddressComponent;
@@ -85,6 +86,9 @@ public class Details {
 		
 	@Key("url")
 	private String urlString;
+	
+	@Key("photos")
+	private List<Photo> photos;
 	
 	private URI uri;
 	
@@ -166,7 +170,12 @@ public class Details {
 		return website;
 	}
 	
-	
+	public void setPhotos(List<Photo> photos) {
+		this.photos = photos;
+	}
+	public List<Photo> getPhotos() {
+		return photos;
+	}
 	
 	
 	/*public String toString() {

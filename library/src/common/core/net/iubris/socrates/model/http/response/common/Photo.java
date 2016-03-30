@@ -13,6 +13,9 @@ public class Photo {
 	@Key("photo_reference")
 	private String photoReference;
 	
+//	@Key("html_attributions")
+//	private List<String> comments;
+	
 	public int getHeight() {
 		return height;
 	}
@@ -22,4 +25,7 @@ public class Photo {
 	public String getPhotoReference() {
 		return photoReference;
 	}
+//	public List<String> getComments() {
+//		return comments;
+//	}
 }
